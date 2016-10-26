@@ -3,10 +3,8 @@
     <img width="438" alt="Angular 2 Fundamentals" src="https://cloud.githubusercontent.com/assets/1016365/17200649/085798c6-543c-11e6-8ad0-2484f0641624.png">
   </a>
 </p>
-
-
  
-
+//
 ___
 
 
