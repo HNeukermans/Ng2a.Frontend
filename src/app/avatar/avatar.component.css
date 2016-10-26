@@ -1,0 +1,65 @@
+.container {
+    display : flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    background: gainsboro;
+    border-radius: 6px;
+    padding : 6px;
+    height : 50px; 
+    border : 2px solid whitesmoke;
+ }
+
+ .title {
+     color : whitesmoke;
+     display: flex;     
+     margin: auto;
+     margin-left: 12px;
+     text-transform: capitalize;
+     color: #989898;
+ }
+
+.avatar {
+  position: relative;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  margin: 0px;
+  background: #ddd;
+  -webkit-border-radius: 50%;
+  border-radius: 50%
+}
+
+.avatar:before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 70%;
+  height: 44%;
+  margin: 0 0 0 -35%;
+  background: #989898;
+  -webkit-border-radius: 100% 100% 0 0;
+  border-radius: 100% 100% 0 0
+}
+
+.avatar:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 19%;
+  width: 40%;
+  height: 40%;
+  margin: 0 0 0 -20%;
+  background: #989898;
+  -webkit-box-shadow: 0 0 0 4px #DCDCDC;
+  box-shadow: 0 0 0 4px #DCDCDC;
+  -webkit-border-radius: 50%;
+  border-radius: 50%
+}
+
+.avatar img {
+  position: relative;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  z-index: 10
+}

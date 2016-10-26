@@ -1,0 +1,14 @@
+html, body{
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif
+}
+
+span.active {
+  background-color: gray;
+}
+
+app {
+ min-height: 100%;
+  display: flex;
+  xflex-direction: column;
+}

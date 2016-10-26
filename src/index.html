@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title><%= webpackConfig.metadata.title %></title>
+
+  <meta name="description" content="<%= webpackConfig.metadata.title %>">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <% if (webpackConfig.htmlElements.headTags) { %>
+  <!-- Configured Head Tags  -->
+  <%= webpackConfig.htmlElements.headTags %>
+  <% } %>
+
+  <!-- base url -->
+  <base href="<%= webpackConfig.metadata.baseUrl %>">
+
+
+</head>
+
+<body>
+
+  <app>
+    <style>
+    .loading {
+  background: rgba(223, 42, 42, 0.5);
+  border: 1px solid rgba(223, 42, 42, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 0 16px rgba(186, 28, 28, 0.5);
+  display: block;
+  margin-top: -20px;
+  margin-left: -35px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 9999;
+  width: 70px;
+  height: 40px;
+}
+.loading::before, .loading::after {
+  animation: loading-dots 1s infinite;
+  background: #df2a2a;
+  border-radius: 10px;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 10px;
+  width: 20px;
+  height: 20px;
+}
+.loading::before {
+  left: 10px;
+}
+.loading::after {
+  animation-delay: 0.5s;
+  right: 10px;
+}
+
+@keyframes loading-dots {
+  0% {
+    opacity: 1;
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    -moz-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    -moz-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+    </style>
+    <div class="loading"></div>
+  </app>
+
+  <% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
+  <!-- Webpack Dev Server reload -->
+  <script src="/webpack-dev-server.js"></script>
+  <% } %>
+
+
+</body>
+</html>
