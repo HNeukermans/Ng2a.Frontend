@@ -20,6 +20,12 @@
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-2.1.0.tgz#19aad01f791aa1e3794863d21b35bc377ce76987"
 
+"@angular/material@^2.0.0-alpha.9-3":
+  version "2.0.0-alpha.9-experimental-pizza"
+  resolved "https://registry.yarnpkg.com/@angular/material/-/material-2.0.0-alpha.9-experimental-pizza.tgz#fff31d82899b7daac6bf3fbeca35bc8c948c2408"
+  dependencies:
+    "@types/hammerjs" "^2.0.30"
+
 "@angular/platform-browser-dynamic@2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@angular/platform-browser-dynamic/-/platform-browser-dynamic-2.1.0.tgz#05de532f46bbfdf80a603768e994f33c2ddf73e7"
@@ -58,7 +64,7 @@
   version "1.0.22"
   resolved "https://registry.yarnpkg.com/@types/adal/-/adal-1.0.22.tgz#1966e9601aa00a17c33f0eccacf26a2584c96459"
 
-"@types/hammerjs@^2.0.33":
+"@types/hammerjs@^2.0.30", "@types/hammerjs@^2.0.33":
   version "2.0.33"
   resolved "https://registry.yarnpkg.com/@types/hammerjs/-/hammerjs-2.0.33.tgz#45f57352474181425bb4b65f7313a60426d54bab"
 
