@@ -21,9 +21,6 @@ import '@angularclass/hmr';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-import 'expose?jQuery!jquery';
-import '../node_modules/signalr/jquery.signalR.js';
-
 import 'primeng/primeng';
 
 if ('production' === ENV) {

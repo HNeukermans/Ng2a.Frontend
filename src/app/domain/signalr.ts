@@ -3,7 +3,9 @@ import { Observable, AsyncSubject, BehaviorSubject, Subject } from 'rxjs';
 import { AuthProvider } from './auth.provider';
 import { EstablishedConnection } from './established.connection';
 import { DefaultSignalrConfig, ServerCallBack, SignalrConfig } from './signalr.config.default';
-declare var $;
+import 'expose?jQuery!jquery';
+import '../../../node_modules/signalr/jquery.signalR.js';
+declare var jQuery;
 
 @Injectable()
 export class SignalRConnection {
@@ -25,7 +27,7 @@ export class SignalRConnection {
 
         let oResult = new AsyncSubject<EstablishedConnection>();
         // create connection object
-        let connection = $.hubConnection(this.url);
+        let connection = jQuery.hubConnection(this.url);
         connection.logging = this.logging;
         connection.qs = { user: this.username };
 

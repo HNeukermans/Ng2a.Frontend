@@ -4,7 +4,7 @@
 
 const webpack = require('webpack');
 const helpers = require('./helpers');
-require('dotenv').load();
+//require('dotenv').load();
 /*
  * Webpack Plugins
  */
