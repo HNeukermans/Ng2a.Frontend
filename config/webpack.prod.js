@@ -23,15 +23,15 @@ const WebpackMd5Hash = require('webpack-md5-hash');
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 const HOST = process.env.HOST || 'localhost';
 const PORT = process.env.PORT || 8080;
-const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
+const METADATA = webpackMerge(commonConfig({ env: ENV }).metadata, {
   host: HOST,
   port: PORT,
   ENV: ENV,
   HMR: false
 });
 
-module.exports = function(env) {
-  return webpackMerge(commonConfig({env: ENV}), {
+module.exports = function (env) {
+  return webpackMerge(commonConfig({ env: ENV }), {
 
     /**
      * Switch loaders to debug mode.
@@ -142,25 +142,25 @@ module.exports = function(env) {
        */
       // NOTE: To debug prod builds uncomment //debug lines and comment //prod lines
       new UglifyJsPlugin({
-        // beautify: true, //debug
-        // mangle: false, //debug
-        // dead_code: false, //debug
-        // unused: false, //debug
-        // deadCode: false, //debug
-        // compress: {
-        //   screw_ie8: true,
-        //   keep_fnames: true,
-        //   drop_debugger: false,
-        //   dead_code: false,
-        //   unused: false
-        // }, // debug
-        // comments: true, //debug
+        beautify: true, //debug
+        mangle: false, //debug
+        dead_code: false, //debug
+        unused: false, //debug
+        deadCode: false, //debug
+        compress: {
+          screw_ie8: true,
+          keep_fnames: true,
+          drop_debugger: false,
+          dead_code: false,
+          unused: false
+        }, // debug
+        comments: true, //debug
 
 
-        beautify: false, //prod
-        mangle: { screw_ie8 : true, keep_fnames: true }, //prod
-        compress: { screw_ie8: true }, //prod
-        comments: false //prod
+        // beautify: false, //prod
+        // mangle: { screw_ie8 : true, keep_fnames: true }, //prod
+        // compress: { screw_ie8: true }, //prod
+        // comments: false //prod
       }),
 
       /**

@@ -4,7 +4,7 @@
 
 const webpack = require('webpack');
 const helpers = require('./helpers');
-
+require('dotenv').load();
 /*
  * Webpack Plugins
  */
@@ -15,8 +15,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const HtmlElementsPlugin = require('./html-elements-plugin');
 const AssetsPlugin = require('assets-webpack-plugin');
-const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin'); 
-
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
 /*
  * Webpack Constants
  */
@@ -32,7 +32,7 @@ const METADATA = {
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function(options) {
+module.exports = function (options) {
   isProd = options.env === 'production';
   return {
 
@@ -50,7 +50,7 @@ module.exports = function(options) {
      *
      * See: http://webpack.github.io/docs/configuration.html#cache
      */
-     //cache: false,
+    //cache: false,
 
     /*
      * The entry point for the bundle
@@ -61,9 +61,9 @@ module.exports = function(options) {
     entry: {
 
       'polyfills': './src/polyfills.browser.ts',
-      'vendor':    './src/vendor.browser.ts',
+      'vendor': './src/vendor.browser.ts',
       //'signalr':   './src/signalr/jquery.signalR.js',
-      'main':      './src/main.browser.ts'
+      'main': './src/main.browser.ts'
 
     },
 
@@ -84,9 +84,9 @@ module.exports = function(options) {
       // An array of directory names to be resolved to the current directory
       modules: [helpers.root('src'), 'node_modules'],
 
-      alias : {
+      alias: {
         //'jquery' : '../src/custom.jquery',
-        'jquery-signalr' : '../src/custom.jquery.signalR'        
+        //'jquery-signalr': '../src/custom.jquery.signalR'
       }
 
     },
@@ -103,17 +103,16 @@ module.exports = function(options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#module-preloaders-module-postloaders
        */
-      preLoaders: [
-        {
-          test: /\.ts$/,
-          loader: 'string-replace-loader',
-          query: {
-            search: '(System|SystemJS)(.*[\\n\\r]\\s*\\.|\\.)import\\((.+)\\)',
-            replace: '$1.import($3).then(mod => (mod.__esModule && mod.default) ? mod.default : mod)',
-            flags: 'g'
-          },
-          include: [helpers.root('src')]
+      preLoaders: [{
+        test: /\.ts$/,
+        loader: 'string-replace-loader',
+        query: {
+          search: '(System|SystemJS)(.*[\\n\\r]\\s*\\.|\\.)import\\((.+)\\)',
+          replace: '$1.import($3).then(mod => (mod.__esModule && mod.default) ? mod.default : mod)',
+          flags: 'g'
         },
+        include: [helpers.root('src')]
+      },
 
       ],
 
@@ -160,7 +159,8 @@ module.exports = function(options) {
          * use the style loader for that instead of the string loader
          */
         {
-          test: /\.css$/, exclude: [/primeng/, /font-awesome/, /material/],  
+          test: /\.css$/,
+          exclude: [/primeng/, /font-awesome/, /material/],
           loaders: ['to-string-loader', 'css-loader']
         },
 
@@ -176,26 +176,27 @@ module.exports = function(options) {
         },
 
         /* File loader for supporting images, for example, in CSS files.
-        */
+         */
         {
           test: /\.(jpg|png|gif)$/,
           loader: 'file'
         },
 
-        { test: /\.(png|woff|woff2|eot|ttf|svg)$/, loader: 'url-loader?limit=100000' }
+        {
+          test: /\.(png|woff|woff2|eot|ttf|svg)$/,
+          loader: 'url-loader?limit=100000'
+        }
       ],
 
-      postLoaders: [
-        {
-          test: /\.js$/,
-          loader: 'string-replace-loader',
-          query: {
-            search: 'var sourceMappingUrl = extractSourceMappingUrl\\(cssText\\);',
-            replace: 'var sourceMappingUrl = "";',
-            flags: 'g'
-          }
+      postLoaders: [{
+        test: /\.js$/,
+        loader: 'string-replace-loader',
+        query: {
+          search: 'var sourceMappingUrl = extractSourceMappingUrl\\(cssText\\);',
+          replace: 'var sourceMappingUrl = "";',
+          flags: 'g'
         }
-      ]
+      }]
     },
 
     /*
@@ -254,15 +255,15 @@ module.exports = function(options) {
         from: 'src/assets',
         to: 'assets'
       }], {
-        ignore: [
-          'humans.txt',
-          'robots.txt'
-        ]
-      }),
-      new CopyWebpackPlugin([{ 
+          ignore: [
+            'humans.txt',
+            'robots.txt'
+          ]
+        }),
+      new CopyWebpackPlugin([{
         from: 'src/assets/robots.txt'
-      }, { 
-        from: 'src/assets/humans.txt' 
+      }, {
+        from: 'src/assets/humans.txt'
       }]),
 
       /*
@@ -305,11 +306,15 @@ module.exports = function(options) {
       }),
 
       new ProvidePlugin({
-             jQuery: 'jquery',
-             $: 'jquery',
-             jquery: 'jquery'             
-      })
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: 'jquery',
+        'CHAT_APP_URL': 'process.env.CHAT_APP_URL'
+      }),
 
+      new DefinePlugin({
+        'CHAT_APP_URL': 'process.env.CHAT_APP_URL'
+      })
     ],
 
     /*

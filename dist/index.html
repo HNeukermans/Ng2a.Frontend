@@ -7,18 +7,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<title>
-		<%= webpackConfig.metadata.title %>
+		Angular2 Webpack Starter by @gdi2290 from @AngularClass
 	</title>
 
-	<meta name="description" content="<%= webpackConfig.metadata.title %>">
+	<meta name="description" content="Angular2 Webpack Starter by @gdi2290 from @AngularClass">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<% if (webpackConfig.htmlElements.headTags) { %>
+	
 		<!-- Configured Head Tags  -->
-		<%= webpackConfig.htmlElements.headTags %>
-			<% } %>
+		<meta name="msapplication-TileColor" content="#00bcd4">
+	<meta name="msapplication-TileImage" content="/assets/icon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#0bbcd4">
+			
 
 				<!-- base url -->
-				<base href="<%= webpackConfig.metadata.baseUrl %>">
+				<base href="/">
 
 
 </head>
@@ -92,12 +94,9 @@
 		<div class="loading"></div>
 	</app>
 
-	<% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
-		<!-- Webpack Dev Server reload -->
-		<script src="/webpack-dev-server.js"></script>
-		<% } %>
+	
 
-    <% if (webpackConfig.metadata.NODE_ENV !== 'production') { %>
+    
       <!-- Webpack Dev Server reload -->
       <script>
           var CONFIG = {
@@ -105,20 +104,12 @@
             'tenant' : 'hneu70532.onmicrosoft.com'
           }
       </script>
-      <% } %>
+      
 
-      <% if (webpackConfig.metadata.NODE_ENV === 'production') { %>
-        <!-- Webpack Dev Server reload -->
-        <script>
-          var CONFIG = {
-            'AAD_CLIENTID' : '61bdbb45-a004-48e3-98d9-e4f1740661c8',
-            'tenant' : 'hneu70532.onmicrosoft.com'
-          }
-        </script>
-        <% } %>
+      
 
 
 
-</body>
+<script type="text/javascript" src="polyfills.9597efa6056672a415e0.bundle.js"></script><script type="text/javascript" src="vendor.e3a70357e1123260b3fe.bundle.js"></script><script type="text/javascript" src="main.7c746b711e534a3c7293.bundle.js"></script></body>
 
 </html>

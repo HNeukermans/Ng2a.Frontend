@@ -33,6 +33,8 @@ export class ChatBox implements OnDestroy, OnInit {
     ngOnInit() {
         console.log('hello from Chatbox');
 
+        //console.log('' + CHAT_APP_URL + '');
+
         this.btnAddClick$.do(logToConsole('onBtnAddClick'));
         this.txtMessageEnter$.do(logToConsole('onTxtMessageEnter'));
 

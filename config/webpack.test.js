@@ -4,6 +4,7 @@
 
 const helpers = require('./helpers');
 
+require('dotenv').load();
 /**
  * Webpack Plugins
  */
@@ -20,7 +21,7 @@ const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
  *
  * See: http://webpack.github.io/docs/configuration.html#cli
  */
-module.exports = function(options) {
+module.exports = function (options) {
   return {
 
     /**
@@ -87,10 +88,11 @@ module.exports = function(options) {
           test: /\.js$/,
           loader: 'source-map-loader',
           exclude: [
-          // these packages have problems with their sourcemaps
-          helpers.root('node_modules/rxjs'),
-          helpers.root('node_modules/@angular')
-        ]}
+            // these packages have problems with their sourcemaps
+            helpers.root('node_modules/rxjs'),
+            helpers.root('node_modules/@angular')
+          ]
+        }
 
       ],
 
