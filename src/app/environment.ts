@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 
 // Angular 2
 // rc2 workaround
@@ -7,6 +8,17 @@ import { enableProdMode, ApplicationRef } from '@angular/core';
 let PROVIDERS: any[] = [
   // common env directives
 ];
+
+class Settings {
+  constructor(public signalUrl: string) {
+  }
+}
+
+let config: Settings = new Settings('http://localhost:10772/');
+
+if ('production' === ENV) {
+  config = new Settings('http://ng2a-hneu-web-app.azurewebsites.net');
+}
 
 // Angular debug tools in the dev console
 // https://github.com/angular/angular/blob/86405345b781a9dc2438c0fbe3e9409245647019/TOOLS_JS.md
@@ -42,6 +54,8 @@ if ('production' === ENV) {
   ];
 
 }
+
+export const AppConfig: Settings = config;
 
 export const decorateModuleRef = _decorateModuleRef;
 
