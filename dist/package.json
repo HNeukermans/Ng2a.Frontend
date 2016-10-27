@@ -1,0 +1,11 @@
+{
+    "name": "ng2a",
+    "version": "1.0.0",
+    "dependencies": {
+        "express": "4.13.4"
+    },
+    "engines": {
+        "node": ">= 4.2.1",
+        "npm": ">= 3"
+    }
+}

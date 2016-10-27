@@ -16,7 +16,7 @@ const IgnorePlugin = require('webpack/lib/IgnorePlugin');
 const DedupePlugin = require('webpack/lib/optimize/DedupePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 /**
  * Webpack Constants
  */
@@ -94,6 +94,12 @@ module.exports = function (env) {
      * See: http://webpack.github.io/docs/configuration.html#plugins
      */
     plugins: [
+
+      new CopyWebpackPlugin([{
+        from: 'server'
+      }, {
+        from: 'dist'
+      }]),
 
       /**
        * Plugin: WebpackMd5Hash
