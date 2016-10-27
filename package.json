@@ -104,6 +104,7 @@
     "css-loader": "^0.25.0",
     "exports-loader": "^0.6.3",
     "expose-loader": "^0.7.1",
+    "extended-define-webpack-plugin": "^0.1.2",
     "file-loader": "^0.9.0",
     "gh-pages": "^0.11.0",
     "html-webpack-plugin": "^2.21.0",

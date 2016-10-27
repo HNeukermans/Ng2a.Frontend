@@ -9,6 +9,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 /**
  * Webpack Plugins
  */
+const ExtendedDefinePlugin = require('extended-define-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
 
@@ -117,6 +118,12 @@ module.exports = function (options) {
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR
         }
+      }),
+
+      new ExtendedDefinePlugin({
+        APP_CONFIG: {
+          CHAT_APP_URL: JSON.stringify('http://localhost:10772/')
+        },
       }),
 
       /**

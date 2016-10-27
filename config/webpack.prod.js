@@ -9,6 +9,7 @@ const commonConfig = require('./webpack.common.js'); // the settings that are co
 /**
  * Webpack Plugins
  */
+var ExtendedDefinePlugin = require('extended-define-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NormalModuleReplacementPlugin = require('webpack/lib/NormalModuleReplacementPlugin');
@@ -132,12 +133,20 @@ module.exports = function (env) {
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
+        'CHAT_APP_URL': JSON.stringify('some value'),
         'process.env': {
           'ENV': JSON.stringify(METADATA.ENV),
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR,
+          'CHAT_APP_URL': JSON.stringify('http://ng2a-hneu-web-app.azurewebsites.net')
         }
       }),
+
+      new ExtendedDefinePlugin({
+        APP_CONFIG: {
+            CHAT_APP_URL : JSON.stringify('http://ng2a-hneu-web-app.azurewebsites.net')
+        },
+      })
 
       /**
        * Plugin: UglifyJsPlugin

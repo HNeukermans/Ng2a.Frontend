@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthProvider } from './auth.provider';
 import { ReplaySubject } from 'rxjs';
-import { AppConfig } from '../environment';
 @Injectable()
 export class DefaultSignalrConfig {
 
@@ -12,9 +11,12 @@ export class DefaultSignalrConfig {
 
 
     public get(): SignalrConfig {
+
+        let configUrl: string = APP_CONFIG.CHAT_APP_URL;
+
         let config: SignalrConfig = {
             hubName: 'ChatAppHub',
-            url: AppConfig.signalUrl,
+            url: configUrl,
             username: this.getloggedInUserName(),
             serverCallBacks: [],
             logging: true

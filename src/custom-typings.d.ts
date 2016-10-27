@@ -54,6 +54,12 @@ declare var HMR: boolean;
 declare var System: SystemJS;
 declare var CHAT_APP_URL: string;
 
+declare var APP_CONFIG: IAPP_CONFIG
+
+interface IAPP_CONFIG {
+  CHAT_APP_URL: string
+}
+
 interface SystemJS {
   import: (path?: string) => Promise<any>;
 }

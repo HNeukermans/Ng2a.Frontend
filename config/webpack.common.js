@@ -308,13 +308,9 @@ module.exports = function (options) {
       new ProvidePlugin({
         jQuery: 'jquery',
         $: 'jquery',
-        jquery: 'jquery',
-        'CHAT_APP_URL': 'process.env.CHAT_APP_URL'
+        jquery: 'jquery'
       }),
 
-      new DefinePlugin({
-        'CHAT_APP_URL': 'process.env.CHAT_APP_URL'
-      })
     ],
 
     /*
