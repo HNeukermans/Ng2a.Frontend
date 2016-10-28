@@ -12,7 +12,7 @@ require('dotenv').load();
 const ExtendedDefinePlugin = require('extended-define-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const NamedModulesPlugin = require('webpack/lib/NamedModulesPlugin');
-
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 /**
  * Webpack Constants
  */
@@ -139,6 +139,10 @@ module.exports = function(options) {
              */
             new NamedModulesPlugin(),
 
+            new CopyWebpackPlugin([{
+                from: 'server',
+                to: 'dist'
+            }])
         ],
 
         /**
