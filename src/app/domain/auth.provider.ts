@@ -23,14 +23,15 @@ export class AuthProvider {
         let config = this.getConfig();
         let rawContext = new createRawAuthContext(config);
         this.enableRawLogging();
-        this._context = <AuthContext> this.extend(rawContext);
+        this._context = <AuthContext>this.extend(rawContext);
         return this._context;
     }
 
     private getConfig(): adal.Config {
+
         let config: adal.Config = {
             tenant: 'hneu70532.onmicrosoft.com',
-            clientId: '61bdbb45-a004-48e3-98d9-e4f1740661c8', //hannes@hneu70532.onmicrosoft.com
+            clientId: APP_CONFIG.AD_DIRECTORY_ID,
             postLogoutRedirectUri: window.location.origin + '/',
             redirectUri: window.location.origin + '/'
         };
@@ -39,10 +40,10 @@ export class AuthProvider {
 
     private extend(context: adal.AuthenticationContext): any {
 
-        (<any> context).isLoggedIn = function () {
+        (<any>context).isLoggedIn = function () {
             return context.getCachedUser() != null;
         };
-        (<any> context).processAdRedirect = function (): Observable<string> {
+        (<any>context).processAdRedirect = function (): Observable<string> {
             let observable = new BehaviorSubject('init');
             console.log('process ad redirect...');
             //observable.next('login:succes');

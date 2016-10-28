@@ -57,7 +57,8 @@ declare var CHAT_APP_URL: string;
 declare var APP_CONFIG: IAPP_CONFIG
 
 interface IAPP_CONFIG {
-  CHAT_APP_URL: string
+  CHAT_APP_URL: string,
+  AD_DIRECTORY_ID: string;
 }
 
 interface SystemJS {
