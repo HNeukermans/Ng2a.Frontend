@@ -126,7 +126,7 @@ module.exports = function(options) {
 
             new ExtendedDefinePlugin({
                 APP_CONFIG: {
-                    CHAT_APP_URL: 'http://localhost:10772/',
+                    CHAT_APP_URL: 'http://ng2a-hneu-web-app.azurewebsites.net',
                     AD_DIRECTORY_ID: process.env.SECRET_AD_DIRECTORY_ID //secret id stored in .gitignore file .env
                 },
             }),

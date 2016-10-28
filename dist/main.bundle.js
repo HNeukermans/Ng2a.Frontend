@@ -40765,7 +40765,7 @@ var DefaultSignalrConfig = (function () {
         console.log('DefaultSignalrConfig ctr');
     }
     DefaultSignalrConfig.prototype.get = function () {
-        var configUrl = "http://localhost:10772/";
+        var configUrl = "http://ng2a-hneu-web-app.azurewebsites.net";
         var config = {
             hubName: 'ChatAppHub',
             url: configUrl,
