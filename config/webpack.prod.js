@@ -140,9 +140,10 @@ module.exports = function(options) {
             new NamedModulesPlugin(),
 
             new CopyWebpackPlugin([{
-                from: 'server',
-                to: 'dist'
-            }])
+                from: 'server'
+            }, {
+                from: 'dist'
+            }]),
         ],
 
         /**
