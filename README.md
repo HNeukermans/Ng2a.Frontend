@@ -14,10 +14,10 @@ This is a Ng2A sample project.
    
    
 ## live demo hosted on azure
- http://ng2a-hneu-web-ui.azurewebsites.net/
- you can login with : 
-  login: guest1@hneu.microsoft.com -paswoord Test1234
-  login: guest2@hneu.microsoft.com paswoord Test1234
+ http://ng2a-hneu-web-ui.azurewebsites.net/<br>
+ you can login with one of two: 
+  1. login: guestone@hneu.microsoft.com -paswoord: Test1234
+  2. login: guesttwo@hneu.microsoft.com -paswoord: Test1234
 
 ## Install
 
