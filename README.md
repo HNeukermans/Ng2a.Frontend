@@ -3,8 +3,8 @@
 ## Live demo hosted on azure
  http://ng2a-hneu-web-ui.azurewebsites.net/<br>
  1. you can login with one of two: 
-  1. login: guestone@hneu.microsoft.com -paswoord: Test1234
-  2. login: guesttwo@hneu.microsoft.com -paswoord: Test1234
+  1. login: guestone@hneu70532.onmicrosoft.com -paswoord: Test1234
+  2. login: guesttwo@hneu70532.onmicrosoft.com -paswoord: Test1234
  2. wait for you friend to login and start chatting... 
 
 
