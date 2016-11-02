@@ -19,6 +19,7 @@
    6. asp.net owin   
    7. asp.net cors
    8. azure-github-ci-webhook
+   9. azure app-insights (.js client)
    
 ## Install
 
