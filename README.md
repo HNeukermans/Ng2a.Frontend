@@ -10,6 +10,14 @@ This is a Ng2A sample project.
    5. asp.net signalr
    6. asp.net owin   
    7. asp.net cors
+   8. azure-github-ci-webhook
+   
+   
+## live demo hosted on azure
+ http://ng2a-hneu-web-ui.azurewebsites.net/
+ you can login with : 
+  login: guest1@hneu.microsoft.com -paswoord Test1234
+  login: guest2@hneu.microsoft.com paswoord Test1234
 
 ## Install
 
