@@ -40001,7 +40001,7 @@ __export(__webpack_require__("./src/app/about/about.component.ts"));
 /***/ "./src/app/app.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<md-sidenav-layout fullscreen>\r\n  <md-sidenav #sidenav>\r\n    <md-nav-list>\r\n\t  <a md-list-item (click)=\"login();\">\r\n        <md-icon md-list-icon>account_circle</md-icon>\r\n        <span md-line>Login</span>\r\n        <span md-line class=\"secondary\">Use your Azure AD</span>\r\n      </a>\r\n      <a md-list-item (click)=\"logout();\">\r\n        <md-icon md-list-icon>play_for_work</md-icon>\r\n        <span md-line>Logout</span>\r\n        <span md-line class=\"secondary\">Click here to logout</span>\r\n      </a>\r\n    </md-nav-list>\r\n  </md-sidenav>\r\n\r\n <md-toolbar color=\"primary\">\r\n    <button md-icon-button (click)=\"sidenav.open()\">\r\n      <md-icon>menu</md-icon>\r\n    </button>\r\n    <h2 style=\"margin-left:16px\"> Ng-2a </h2> \r\n  </md-toolbar>\r\n\t\r\n\t<div style=\"padding:12px;\">\r\n\t\t<main>\r\n\t\t\t  \r\n  \t\t\t<router-outlet></router-outlet>\r\n\t\t</main>\r\n\t</div>\r\n\t</md-sidenav-layout>\r\n\r\n\t <!--{{ user | json}}-->\r\n\r\n"
+module.exports = "<md-sidenav-layout fullscreen>\r\n\t<md-sidenav #sidenav>\r\n\t\t<md-nav-list>\r\n\t\t\t<a md-list-item (click)=\"login();\">\r\n\t\t\t\t<md-icon md-list-icon>account_circle</md-icon>\r\n\t\t\t\t<span md-line>Login</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Use your Azure AD</span>\r\n\t\t\t</a>\r\n\t\t\t<a md-list-item (click)=\"logout();\">\r\n\t\t\t\t<md-icon md-list-icon>play_for_work</md-icon>\r\n\t\t\t\t<span md-line>Logout</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Click here to logout</span>\r\n\t\t\t</a>\r\n\t\t\t<a md-list-item (click)=\"goToAppInsights();\">\r\n\t\t\t\t<md-icon md-list-icon>home</md-icon>\r\n\t\t\t\t<span md-line>App Insights</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Experiment with App Insights</span>\r\n\t\t\t</a>\r\n\t\t\t<a md-list-item (click)=\"goToHome();\">\r\n\t\t\t\t<md-icon md-list-icon>home</md-icon>\r\n\t\t\t\t<span md-line>Chat</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Chat with your friend</span>\r\n\t\t\t</a>\r\n\t\t</md-nav-list>\r\n\t</md-sidenav>\r\n\r\n\t<md-toolbar color=\"primary\">\r\n\t\t<button md-icon-button (click)=\"sidenav.open()\">\r\n      <md-icon>menu</md-icon>\r\n    </button>\r\n\t\t<h2 style=\"margin-left:16px\"> Ng-2a </h2>\r\n\t</md-toolbar>\r\n\r\n\t<div style=\"padding:12px;\">\r\n\t\t<main>\r\n\r\n\t\t\t<router-outlet></router-outlet>\r\n\t\t</main>\r\n\t</div>\r\n</md-sidenav-layout>\r\n\r\n<!--{{ user | json}}-->"
 
 /***/ },
 
@@ -40055,9 +40055,11 @@ var App = (function () {
         context.login();
         context.getCachedUser();
     };
-    App.prototype.fakeSession = function () {
-        var context = this._authProvider.getContext();
-        this.user = context.getCachedUser();
+    App.prototype.goToAppInsights = function () {
+        this._router.navigateByUrl('/appinsights');
+    };
+    App.prototype.goToHome = function () {
+        this._router.navigateByUrl('/home');
     };
     App = __decorate([
         core_1.Component({
@@ -40106,6 +40108,7 @@ var domain_1 = __webpack_require__("./src/app/domain/index.ts");
 var chatbox_1 = __webpack_require__("./src/app/chatbox/index.ts");
 var avatar_1 = __webpack_require__("./src/app/avatar/index.ts");
 var home_2_1 = __webpack_require__("./src/app/home.2/index.ts");
+var appinsights_1 = __webpack_require__("./src/app/appinsights/index.ts");
 // Application wide providers
 var APP_PROVIDERS = app_resolver_1.APP_RESOLVER_PROVIDERS.concat([
     app_service_1.AppState,
@@ -40166,7 +40169,8 @@ var AppModule = (function () {
                 no_content_1.EmptyContent,
                 x_large_1.XLarge,
                 chatbox_1.ChatBox,
-                avatar_1.Avatar
+                avatar_1.Avatar,
+                appinsights_1.AppInsights
             ],
             imports: [
                 platform_browser_1.BrowserModule,
@@ -40231,11 +40235,13 @@ exports.APP_RESOLVER_PROVIDERS = [
 "use strict";
 var home_2_1 = __webpack_require__("./src/app/home.2/index.ts");
 var no_content_1 = __webpack_require__("./src/app/no-content/index.ts");
+var appinsights_1 = __webpack_require__("./src/app/appinsights/index.ts");
 exports.ROUTES = [
     { path: '', component: home_2_1.Home2 },
     { path: 'home', component: home_2_1.Home2 },
     { path: 'empty', component: no_content_1.EmptyContent },
-    { path: '**', component: no_content_1.NoContent },
+    { path: 'appinsights', component: appinsights_1.AppInsights },
+    { path: '**', component: no_content_1.NoContent }
 ];
 
 
@@ -40283,6 +40289,72 @@ var AppState = (function () {
     return AppState;
 }());
 exports.AppState = AppState;
+
+
+/***/ },
+
+/***/ "./src/app/appinsights/appinsights.component.html":
+/***/ function(module, exports) {
+
+module.exports = "<div class=\"appinsights\"> Hello AppinsightsComponent! </div>\r\n\r\n\r\n\r\n<button (click)=\"trackException();\">track exception</button>\r\n\r\n<button (click)=\"trackEvent();\">track event</button>\r\n\r\n<button (click)=\"flush();\">flush</button>"
+
+/***/ },
+
+/***/ "./src/app/appinsights/appinsights.component.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+var core_1 = __webpack_require__("./node_modules/@angular/core/index.js");
+var AppInsights = (function () {
+    function AppInsights() {
+    }
+    AppInsights.prototype.ngOnInit = function () {
+        var env = "prod";
+        if (env === 'prod') {
+            window.appInsights.trackPageView('AppInsights');
+        }
+        // if ('production' !== ENV) {
+        // 	(<any>window).appInsights.trackPageView('AppInsights');
+        // }
+    };
+    AppInsights.prototype.trackException = function () {
+        try {
+            throw Error('trackEvent');
+        }
+        catch (error) {
+            window.appInsights.trackException(error);
+        }
+    };
+    AppInsights.prototype.trackEvent = function () {
+        window.appInsights.trackEvent("TrackEvent clicked");
+    };
+    AppInsights.prototype.flush = function () {
+        window.appInsights.flush();
+    };
+    AppInsights = __decorate([
+        core_1.Component({
+            selector: 'appinsights',
+            template: __webpack_require__("./src/app/appinsights/appinsights.component.html")
+        }), 
+        __metadata('design:paramtypes', [])
+    ], AppInsights);
+    return AppInsights;
+}());
+exports.AppInsights = AppInsights;
+
+
+/***/ },
+
+/***/ "./src/app/appinsights/index.ts":
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+"use strict";
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+__export(__webpack_require__("./src/app/appinsights/appinsights.component.ts"));
 
 
 /***/ },
@@ -41109,6 +41181,10 @@ var Home2 = (function () {
     }
     Home2.prototype.ngOnInit = function () {
         console.log('hello `Home 2` component');
+        var env = "prod";
+        if (env === 'prod') {
+            window.appInsights.trackPageView('Home');
+        }
     };
     Home2.prototype.logout = function () {
         var context = this._authprovider.getContext();
