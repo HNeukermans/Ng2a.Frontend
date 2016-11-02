@@ -12171,7 +12171,7 @@ exports = module.exports = __webpack_require__("./node_modules/css-loader/lib/cs
 
 
 // module
-exports.push([module.i, ".container {\n    display : flex;\n    flex-direction: row;\n    justify-content: flex-start;\n    background: gainsboro;\n    border-radius: 6px;\n    padding : 6px;\n    height : 50px; \n    border : 2px solid whitesmoke;\n }\n\n .title {\n     color : whitesmoke;\n     display: flex;     \n     margin: auto;\n     margin-left: 12px;\n     text-transform: capitalize;\n     color: #989898;\n }\n\n.avatar {\n  position: relative;\n  overflow: hidden;\n  width: 40px;\n  height: 40px;\n  margin: 0px;\n  background: #ddd;\n  -webkit-border-radius: 50%;\n  border-radius: 50%\n}\n\n.avatar:before {\n  content: \"\";\n  position: absolute;\n  left: 50%;\n  bottom: 0;\n  width: 70%;\n  height: 44%;\n  margin: 0 0 0 -35%;\n  background: #989898;\n  -webkit-border-radius: 100% 100% 0 0;\n  border-radius: 100% 100% 0 0\n}\n\n.avatar:after {\n  content: \"\";\n  position: absolute;\n  left: 50%;\n  top: 19%;\n  width: 40%;\n  height: 40%;\n  margin: 0 0 0 -20%;\n  background: #989898;\n  -webkit-box-shadow: 0 0 0 4px #DCDCDC;\n  box-shadow: 0 0 0 4px #DCDCDC;\n  -webkit-border-radius: 50%;\n  border-radius: 50%\n}\n\n.avatar img {\n  position: relative;\n  -webkit-border-radius: 50%;\n  border-radius: 50%;\n  z-index: 10\n}", ""]);
+exports.push([module.i, ".container {\r\n    display : flex;\r\n    flex-direction: row;\r\n    justify-content: flex-start;\r\n    background: gainsboro;\r\n    border-radius: 6px;\r\n    padding : 6px;\r\n    height : 50px; \r\n    border : 2px solid whitesmoke;\r\n }\r\n\r\n .title {\r\n     color : whitesmoke;\r\n     display: flex;     \r\n     margin: auto;\r\n     margin-left: 12px;\r\n     text-transform: capitalize;\r\n     color: #989898;\r\n }\r\n\r\n.avatar {\r\n  position: relative;\r\n  overflow: hidden;\r\n  width: 40px;\r\n  height: 40px;\r\n  margin: 0px;\r\n  background: #ddd;\r\n  -webkit-border-radius: 50%;\r\n  border-radius: 50%\r\n}\r\n\r\n.avatar:before {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 50%;\r\n  bottom: 0;\r\n  width: 70%;\r\n  height: 44%;\r\n  margin: 0 0 0 -35%;\r\n  background: #989898;\r\n  -webkit-border-radius: 100% 100% 0 0;\r\n  border-radius: 100% 100% 0 0\r\n}\r\n\r\n.avatar:after {\r\n  content: \"\";\r\n  position: absolute;\r\n  left: 50%;\r\n  top: 19%;\r\n  width: 40%;\r\n  height: 40%;\r\n  margin: 0 0 0 -20%;\r\n  background: #989898;\r\n  -webkit-box-shadow: 0 0 0 4px #DCDCDC;\r\n  box-shadow: 0 0 0 4px #DCDCDC;\r\n  -webkit-border-radius: 50%;\r\n  border-radius: 50%\r\n}\r\n\r\n.avatar img {\r\n  position: relative;\r\n  -webkit-border-radius: 50%;\r\n  border-radius: 50%;\r\n  z-index: 10\r\n}", ""]);
 
 // exports
 
@@ -36602,8 +36602,6 @@ exports.not = not;
 /// <reference path="jquery.signalR.version.js" />
 (function ($, window, undefined) {
 
-    console.log('signalr loaded');
-
     var resources = {
         nojQuery: "jQuery was not found. Please ensure jQuery is referenced before the SignalR client JavaScript file.",
         noTransportOnInit: "No transport could be initialized successfully. Try specifying a different transport or none at all for auto initialization.",
@@ -36693,7 +36691,7 @@ exports.not = not;
 
         supportsKeepAlive = function (connection) {
             return connection._.keepAliveData.activated &&
-                connection.transport.supportsKeepAlive(connection);
+                   connection.transport.supportsKeepAlive(connection);
         },
 
         configureStopReconnectingTimeout = function (connection) {
@@ -37070,8 +37068,8 @@ exports.not = not;
             if (connection.state === signalR.connectionState.connecting) {
                 return deferred.promise();
             } else if (changeState(connection,
-                signalR.connectionState.disconnected,
-                signalR.connectionState.connecting) === false) {
+                            signalR.connectionState.disconnected,
+                            signalR.connectionState.connecting) === false) {
                 // We're not connecting so try and transition into connecting.
                 // If we fail to transition then we're either in connected or reconnecting.
 
@@ -37202,8 +37200,8 @@ exports.not = not;
                         signalR._.configurePingInterval(connection);
 
                         if (!changeState(connection,
-                            signalR.connectionState.connecting,
-                            signalR.connectionState.connected)) {
+                                            signalR.connectionState.connecting,
+                                            signalR.connectionState.connected)) {
                             connection.log("WARNING! The connection was not in the connecting state.");
                         }
 
@@ -37571,7 +37569,7 @@ exports.not = not;
 
     $.connection = $.signalR = signalR;
 
-} (window.jQuery, window));
+}(window.jQuery, window));
 /* jquery.signalR.transports.common.js */
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
@@ -38019,11 +38017,11 @@ exports.not = not;
 
         ajaxStart: function (connection, onSuccess) {
             var rejectDeferred = function (error) {
-                var deferred = connection._deferral;
-                if (deferred) {
-                    deferred.reject(error);
-                }
-            },
+                    var deferred = connection._deferral;
+                    if (deferred) {
+                        deferred.reject(error);
+                    }
+                },
                 triggerStartError = function (error) {
                     connection.log("The start request failed. Stopping the connection.");
                     $(connection).triggerHandler(events.onError, [error]);
@@ -38179,13 +38177,13 @@ exports.not = not;
 
         isConnectedOrReconnecting: function (connection) {
             return connection.state === signalR.connectionState.connected ||
-                connection.state === signalR.connectionState.reconnecting;
+                   connection.state === signalR.connectionState.reconnecting;
         },
 
         ensureReconnectingState: function (connection) {
             if (changeState(connection,
-                signalR.connectionState.connected,
-                signalR.connectionState.reconnecting) === true) {
+                        signalR.connectionState.connected,
+                        signalR.connectionState.reconnecting) === true) {
                 $(connection).triggerHandler(events.onReconnecting);
             }
             return connection.state === signalR.connectionState.reconnecting;
@@ -38262,7 +38260,7 @@ exports.not = not;
         }
     };
 
-} (window.jQuery, window));
+}(window.jQuery, window));
 /* jquery.signalR.transports.webSockets.js */
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
@@ -38298,7 +38296,7 @@ exports.not = not;
                         ex,
                         connection.socket
                     ),
-                        data]);
+                    data]);
             }
         },
 
@@ -38333,8 +38331,8 @@ exports.not = not;
                     transportLogic.clearReconnectTimeout(connection);
 
                     if (changeState(connection,
-                        signalR.connectionState.reconnecting,
-                        signalR.connectionState.connected) === true) {
+                                    signalR.connectionState.reconnecting,
+                                    signalR.connectionState.connected) === true) {
                         $connection.triggerHandler(events.onReconnect);
                     }
                 };
@@ -38419,7 +38417,7 @@ exports.not = not;
         }
     };
 
-} (window.jQuery, window));
+}(window.jQuery, window));
 /* jquery.signalR.transports.serverSentEvents.js */
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
@@ -38500,7 +38498,7 @@ exports.not = not;
                         }
                     }
                 },
-                    that.timeOut);
+                that.timeOut);
             }
 
             connection.eventSource.addEventListener("open", function (e) {
@@ -38513,8 +38511,8 @@ exports.not = not;
                     opened = true;
 
                     if (changeState(connection,
-                        signalR.connectionState.reconnecting,
-                        signalR.connectionState.connected) === true) {
+                                         signalR.connectionState.reconnecting,
+                                         signalR.connectionState.connected) === true) {
                         $connection.triggerHandler(events.onReconnect);
                     }
                 }
@@ -38603,7 +38601,7 @@ exports.not = not;
         }
     };
 
-} (window.jQuery, window));
+}(window.jQuery, window));
 /* jquery.signalR.transports.foreverFrame.js */
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
@@ -38851,7 +38849,7 @@ exports.not = not;
         }
     };
 
-} (window.jQuery, window));
+}(window.jQuery, window));
 /* jquery.signalR.transports.longPolling.js */
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
@@ -38907,8 +38905,8 @@ exports.not = not;
                     privateData.reconnectTimeoutId = null;
 
                     if (changeState(instance,
-                        signalR.connectionState.reconnecting,
-                        signalR.connectionState.connected) === true) {
+                                    signalR.connectionState.reconnecting,
+                                    signalR.connectionState.connected) === true) {
                         // Successfully reconnected!
                         instance.log("Raising the reconnect event");
                         $(instance).triggerHandler(events.onReconnect);
@@ -39077,7 +39075,7 @@ exports.not = not;
                         // The Math.min at the end is to ensure that the reconnect timeout does not overflow.
                         privateData.reconnectTimeoutId = window.setTimeout(function () { fireReconnected(instance); }, Math.min(1000 * (Math.pow(2, reconnectErrors) - 1), maxFireReconnectedTimeout));
                     }
-                } (connection));
+                }(connection));
             }, 250); // Have to delay initial poll so Chrome doesn't show loader spinner in tab
         },
 
@@ -39113,7 +39111,7 @@ exports.not = not;
         }
     };
 
-} (window.jQuery, window));
+}(window.jQuery, window));
 /* jquery.signalR.hubs.js */
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
@@ -39290,7 +39288,7 @@ exports.not = not;
                         if (d.notifyWith) {
                             // Progress is only supported in jQuery 1.7+
                             d.notifyWith(that, [result.Progress.Data]);
-                        } else if (!connection._.progressjQueryVersionLogged) {
+                        } else if(!connection._.progressjQueryVersionLogged) {
                             connection.log("A hub method invocation progress update was received but the version of jQuery in use (" + $.prototype.jquery + ") does not support progress updates. Upgrade to jQuery 1.7+ to receive progress notifications.");
                             connection._.progressjQueryVersionLogged = true;
                         }
@@ -39369,10 +39367,10 @@ exports.not = not;
 
     hubConnection.fn.init = function (url, options) {
         var settings = {
-            qs: null,
-            logging: false,
-            useDefaultPath: true
-        },
+                qs: null,
+                logging: false,
+                useDefaultPath: true
+            },
             connection = this;
 
         $.extend(settings, options);
@@ -39533,7 +39531,7 @@ exports.not = not;
 
     $.hubConnection = hubConnection;
 
-} (window.jQuery, window));
+}(window.jQuery, window));
 /* jquery.signalR.version.js */
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
@@ -39543,7 +39541,7 @@ exports.not = not;
 /// <reference path="jquery.signalR.core.js" />
 (function ($, undefined) {
     $.signalR.version = "2.2.1";
-} (window.jQuery));
+}(window.jQuery));
 
 
 /***/ },
@@ -40001,7 +39999,7 @@ __export(__webpack_require__("./src/app/about/about.component.ts"));
 /***/ "./src/app/app.component.html":
 /***/ function(module, exports) {
 
-module.exports = "<md-sidenav-layout fullscreen>\r\n\t<md-sidenav #sidenav>\r\n\t\t<md-nav-list>\r\n\t\t\t<a md-list-item (click)=\"login();\">\r\n\t\t\t\t<md-icon md-list-icon>account_circle</md-icon>\r\n\t\t\t\t<span md-line>Login</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Use your Azure AD</span>\r\n\t\t\t</a>\r\n\t\t\t<a md-list-item (click)=\"logout();\">\r\n\t\t\t\t<md-icon md-list-icon>play_for_work</md-icon>\r\n\t\t\t\t<span md-line>Logout</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Click here to logout</span>\r\n\t\t\t</a>\r\n\t\t\t<a md-list-item (click)=\"goToAppInsights();\">\r\n\t\t\t\t<md-icon md-list-icon>home</md-icon>\r\n\t\t\t\t<span md-line>App Insights</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Experiment with App Insights</span>\r\n\t\t\t</a>\r\n\t\t\t<a md-list-item (click)=\"goToHome();\">\r\n\t\t\t\t<md-icon md-list-icon>home</md-icon>\r\n\t\t\t\t<span md-line>Chat</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Chat with your friend</span>\r\n\t\t\t</a>\r\n\t\t</md-nav-list>\r\n\t</md-sidenav>\r\n\r\n\t<md-toolbar color=\"primary\">\r\n\t\t<button md-icon-button (click)=\"sidenav.open()\">\r\n      <md-icon>menu</md-icon>\r\n    </button>\r\n\t\t<h2 style=\"margin-left:16px\"> Ng-2a </h2>\r\n\t</md-toolbar>\r\n\r\n\t<div style=\"padding:12px;\">\r\n\t\t<main>\r\n\r\n\t\t\t<router-outlet></router-outlet>\r\n\t\t</main>\r\n\t</div>\r\n</md-sidenav-layout>\r\n\r\n<!--{{ user | json}}-->"
+module.exports = "<md-sidenav-layout fullscreen>\r\n\t<md-sidenav #sidenav>\r\n\t\t<md-nav-list>\r\n\t\t\t<a md-list-item (click)=\"goToAppInsights();\">\r\n\t\t\t\t<md-icon md-list-icon>home</md-icon>\r\n\t\t\t\t<span md-line>App Insights</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Experiment with App Insights</span>\r\n\t\t\t</a>\r\n\t\t\t<a md-list-item (click)=\"goToHome();\">\r\n\t\t\t\t<md-icon md-list-icon>home</md-icon>\r\n\t\t\t\t<span md-line>Chat</span>\r\n\t\t\t\t<span md-line class=\"secondary\">Chat with your friend</span>\r\n\t\t\t</a>\r\n\t\t</md-nav-list>\r\n\t</md-sidenav>\r\n\r\n\t<md-toolbar color=\"primary\">\r\n\t\t<button md-icon-button (click)=\"sidenav.open()\">\r\n      <md-icon>menu</md-icon>\r\n    </button>\r\n\t\t<h2 style=\"margin-left:16px\"> Ng-2a </h2>\r\n\t\t<div style=\"width:80%\"></div>\r\n\t\t<button md-icon-button [md-menu-trigger-for]=\"menu\">\r\n       <md-icon>account_circle</md-icon>\r\n    </button>\r\n\t\t<md-menu #menu=\"mdMenu\" x-position=\"before\">\r\n\t\t\t<button md-menu-item (click)=\"logout();\"> Logout </button>\r\n\t\t</md-menu>\r\n\t</md-toolbar>\r\n\r\n\t<div style=\"padding:12px;\">\r\n\t\t<main>\r\n\r\n\t\t\t<router-outlet></router-outlet>\r\n\t\t</main>\r\n\t</div>\r\n</md-sidenav-layout>\r\n\r\n<!--{{ user | json}}-->"
 
 /***/ },
 
@@ -40034,16 +40032,14 @@ var App = (function () {
         console.log('App: init...');
         var context = this._authProvider.getContext();
         console.log('context.loginInProgress ' + context.loginInProgress());
-        context.processAdRedirect().subscribe(function (s) {
-            console.log('App: ad redirect processed... Result: ' + s);
-            if (s === "login:succes") {
-                console.log('App: login success...');
-                location.hash = '#';
-            }
-        });
+        context.processAdRedirect();
+        if (context.isLoggedIn() === true) {
+            console.log('App: login success...');
+            location.hash = '#/home';
+        }
         if (context.isLoggedIn() === false) {
             console.log('App: is loggedin is false...');
-            location.hash = '#/empty';
+            context.login();
         }
     };
     App.prototype.logout = function () {
@@ -40606,7 +40602,6 @@ __export(__webpack_require__("./src/app/chatbox/chatbox.component.ts"));
 "use strict";
 var core_1 = __webpack_require__("./node_modules/@angular/core/index.js");
 __webpack_require__("./node_modules/expose-loader/index.js?AuthenticationContext!./node_modules/adal-angular/lib/adal.js");
-var rxjs_1 = __webpack_require__("./node_modules/rxjs/Rx.js");
 var createRawAuthContext = AuthenticationContext;
 var AuthProvider = (function () {
     function AuthProvider() {
@@ -40637,25 +40632,12 @@ var AuthProvider = (function () {
             return context.getCachedUser() != null;
         };
         context.processAdRedirect = function () {
-            var observable = new rxjs_1.BehaviorSubject('init');
             console.log('process ad redirect...');
-            //observable.next('login:succes');
             context.verbose('Processing the hash: ' + location.hash);
             if (context.isCallback(location.hash)) {
                 var requestInfo = context.getRequestInfo(location.hash);
                 context.saveTokenFromHash(requestInfo);
-                console.log('is statematch: ' + requestInfo.stateMatch);
-                console.log('is requestType: ' + requestInfo.requestType);
-                if (requestInfo.stateMatch) {
-                    if (requestInfo.requestType === "RENEW_TOKEN") {
-                    }
-                    else if (requestInfo.requestType === "LOGIN") {
-                        observable.next('login:succes');
-                    }
-                }
             }
-            //observable.next('login:succes');
-            return observable;
         };
         return context;
     };
