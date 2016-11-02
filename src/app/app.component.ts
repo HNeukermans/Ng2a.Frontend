@@ -23,40 +23,39 @@ export class App {
     public appState: AppState,
     private _router: Router,
     private _authProvider: AuthProvider,
-    private _signalrService:  SignalRService) {
+    private _signalrService: SignalRService) {
   }
 
   ngOnInit() {
     console.log('App: init...');
     let context = this._authProvider.getContext();
     console.log('context.loginInProgress ' + context.loginInProgress());
-    context.processAdRedirect().subscribe(s => {
-      console.log('App: ad redirect processed... Result: ' + s);
-      if (s === "login:succes") {
-        console.log('App: login success...');
-        location.hash = '#'; 
-      }
-    });
+    context.processAdRedirect();
+
+    if (context.isLoggedIn() === true) {
+      console.log('App: login success...');
+      location.hash = '#/home';
+    }
 
     if (context.isLoggedIn() === false) {
       console.log('App: is loggedin is false...');
-      location.hash = '#/empty';
+      context.login();
     }
   }
 
   logout() {
-      let context = this._authProvider.getContext();
-      context.logOut();
+    let context = this._authProvider.getContext();
+    context.logOut();
   }
 
   login() {
-      let context = this._authProvider.getContext();
-      context.login();
-      context.getCachedUser();
+    let context = this._authProvider.getContext();
+    context.login();
+    context.getCachedUser();
   }
 
   fakeSession() {
-       let context = this._authProvider.getContext();
-       this.user = context.getCachedUser();
+    let context = this._authProvider.getContext();
+    this.user = context.getCachedUser();
   }
 }

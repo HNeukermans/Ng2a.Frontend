@@ -23,7 +23,7 @@ export class AuthProvider {
         let config = this.getConfig();
         let rawContext = new createRawAuthContext(config);
         this.enableRawLogging();
-        this._context = <AuthContext> this.extend(rawContext);
+        this._context = <AuthContext>this.extend(rawContext);
         return this._context;
     }
 
@@ -39,33 +39,16 @@ export class AuthProvider {
 
     private extend(context: adal.AuthenticationContext): any {
 
-        (<any> context).isLoggedIn = function () {
+        (<any>context).isLoggedIn = function () {
             return context.getCachedUser() != null;
         };
-        (<any> context).processAdRedirect = function (): Observable<string> {
-            let observable = new BehaviorSubject('init');
-            console.log('process ad redirect...');
-            //observable.next('login:succes');
-            context.verbose('Processing the hash: ' + location.hash);
+        (<any>context).processAdRedirect = function (): void {
+
+            console.log('processing ad redirect...');
             if (context.isCallback(location.hash)) {
                 let requestInfo = context.getRequestInfo(location.hash);
                 context.saveTokenFromHash(requestInfo);
-
-                console.log('is statematch: ' + requestInfo.stateMatch);
-                console.log('is requestType: ' + requestInfo.requestType);
-                if (requestInfo.stateMatch) {
-                    if (requestInfo.requestType === "RENEW_TOKEN") {
-                        //handle renewed tokens
-                    } else if (requestInfo.requestType === "LOGIN") {
-                        observable.next('login:succes');
-                        //handle login successfully
-                        //updateDataFromCache(_adal.config.loginResource);
-                    }
-                }
             }
-            //observable.next('login:succes');
-
-            return observable;
         };
         return context;
     }
