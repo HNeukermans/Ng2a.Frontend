@@ -50,6 +50,7 @@ declare module '*';
 
 // Extra variables that live on Global that will be replaced by webpack DefinePlugin
 declare var ENV: string;
+declare var IS_PRODUCTION: boolean;
 declare var HMR: boolean;
 declare var System: SystemJS;
 declare var CHAT_APP_URL: string;
@@ -59,6 +60,8 @@ declare var APP_CONFIG: IAPP_CONFIG
 interface IAPP_CONFIG {
   CHAT_APP_URL: string,
   AD_DIRECTORY_ID: string;
+  IS_PRODUCTION: boolean;
+  ENV: string;
 }
 
 interface SystemJS {

@@ -1,33 +1,42 @@
 <md-sidenav-layout fullscreen>
-  <md-sidenav #sidenav>
-    <md-nav-list>
-	  <a md-list-item (click)="login();">
-        <md-icon md-list-icon>account_circle</md-icon>
-        <span md-line>Login</span>
-        <span md-line class="secondary">Use your Azure AD</span>
-      </a>
-      <a md-list-item (click)="logout();">
-        <md-icon md-list-icon>play_for_work</md-icon>
-        <span md-line>Logout</span>
-        <span md-line class="secondary">Click here to logout</span>
-      </a>
-    </md-nav-list>
-  </md-sidenav>
+	<md-sidenav #sidenav>
+		<md-nav-list>
+			<a md-list-item (click)="login();">
+				<md-icon md-list-icon>account_circle</md-icon>
+				<span md-line>Login</span>
+				<span md-line class="secondary">Use your Azure AD</span>
+			</a>
+			<a md-list-item (click)="logout();">
+				<md-icon md-list-icon>play_for_work</md-icon>
+				<span md-line>Logout</span>
+				<span md-line class="secondary">Click here to logout</span>
+			</a>
+			<a md-list-item (click)="goToAppInsights();">
+				<md-icon md-list-icon>home</md-icon>
+				<span md-line>App Insights</span>
+				<span md-line class="secondary">Experiment with App Insights</span>
+			</a>
+			<a md-list-item (click)="goToHome();">
+				<md-icon md-list-icon>home</md-icon>
+				<span md-line>Chat</span>
+				<span md-line class="secondary">Chat with your friend</span>
+			</a>
+		</md-nav-list>
+	</md-sidenav>
 
- <md-toolbar color="primary">
-    <button md-icon-button (click)="sidenav.open()">
+	<md-toolbar color="primary">
+		<button md-icon-button (click)="sidenav.open()">
       <md-icon>menu</md-icon>
     </button>
-    <h2 style="margin-left:16px"> Ng-2a </h2> 
-  </md-toolbar>
-	
+		<h2 style="margin-left:16px"> Ng-2a </h2>
+	</md-toolbar>
+
 	<div style="padding:12px;">
 		<main>
-			  
-  			<router-outlet></router-outlet>
+
+			<router-outlet></router-outlet>
 		</main>
 	</div>
-	</md-sidenav-layout>
+</md-sidenav-layout>
 
-	 <!--{{ user | json}}-->
-
+<!--{{ user | json}}-->

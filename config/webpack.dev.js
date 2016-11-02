@@ -117,6 +117,7 @@ module.exports = function(options) {
             new DefinePlugin({
                 'ENV': JSON.stringify(METADATA.ENV),
                 'HMR': METADATA.HMR,
+                'IS_PRODUCTION' : JSON.stringify(false),
                 'process.env': {
                     'ENV': JSON.stringify(METADATA.ENV),
                     'NODE_ENV': JSON.stringify(METADATA.ENV),
@@ -127,8 +128,9 @@ module.exports = function(options) {
             new ExtendedDefinePlugin({
                 APP_CONFIG: {
                     CHAT_APP_URL: 'http://localhost:10772/',
-                    AD_DIRECTORY_ID: process.env.SECRET_AD_DIRECTORY_ID //secret id stored in .gitignore file .env
-                },
+                    AD_DIRECTORY_ID: process.env.SECRET_AD_DIRECTORY_ID, //secret id stored in .gitignore file .env
+                    ENV: 'dev'
+                }
             }),
 
             /**
