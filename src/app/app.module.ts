@@ -24,6 +24,7 @@ import { ValueService, SignalRService, AuthProvider, DefaultSignalrConfig } from
 import { ChatBox } from './chatbox';
 import { Avatar } from './avatar';
 import { Home2 } from './home.2';
+import { AppInsights } from './appinsights';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -54,7 +55,8 @@ type StoreType = {
     EmptyContent,
     XLarge,
     ChatBox,
-    Avatar
+    Avatar,
+    AppInsights
   ],
   imports: [ // import Angular's modules
     BrowserModule,

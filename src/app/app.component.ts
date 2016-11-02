@@ -54,8 +54,12 @@ export class App {
     context.getCachedUser();
   }
 
-  fakeSession() {
-    let context = this._authProvider.getContext();
-    this.user = context.getCachedUser();
+  goToAppInsights() {
+    this._router.navigateByUrl('/appinsights');
   }
+
+  goToHome() {
+    this._router.navigateByUrl('/home');
+  }
+
 }

@@ -3,7 +3,7 @@ import { AuthProvider, SignalRService } from '../domain';
 
 @Component({
   selector: 'home',
-  styleUrls: [ './home.component.css' ],
+  styleUrls: ['./home.component.css'],
   templateUrl: './home.component.html'
 })
 export class Home2 {
@@ -11,27 +11,31 @@ export class Home2 {
   user: any = null;
   constructor(
     private _authprovider: AuthProvider,
-    private _signalrService:  SignalRService) {
+    private _signalrService: SignalRService) {
   }
 
   ngOnInit() {
     console.log('hello `Home 2` component');
+    let env: string = APP_CONFIG.ENV;
+    if (env === 'prod') {
+      (<any>window).appInsights.trackPageView('Home');
+    }
   }
 
   logout() {
-      let context = this._authprovider.getContext();
-      context.logOut();
+    let context = this._authprovider.getContext();
+    context.logOut();
   }
 
   login() {
-      let context = this._authprovider.getContext();
-      context.login();
-      context.getCachedUser();
+    let context = this._authprovider.getContext();
+    context.login();
+    context.getCachedUser();
   }
 
   fakeSession() {
-       this._signalrService.signalNewUserSession('Fake Frank');
-       let context = this._authprovider.getContext();
-       this.user = context.getCachedUser();
+    this._signalrService.signalNewUserSession('Fake Frank');
+    let context = this._authprovider.getContext();
+    this.user = context.getCachedUser();
   }
 }

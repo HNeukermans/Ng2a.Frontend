@@ -28,9 +28,10 @@ export class AuthProvider {
     }
 
     private getConfig(): adal.Config {
+
         let config: adal.Config = {
             tenant: 'hneu70532.onmicrosoft.com',
-            clientId: '61bdbb45-a004-48e3-98d9-e4f1740661c8', //hannes@hneu70532.onmicrosoft.com
+            clientId: APP_CONFIG.AD_DIRECTORY_ID,
             postLogoutRedirectUri: window.location.origin + '/',
             redirectUri: window.location.origin + '/'
         };
@@ -39,17 +40,19 @@ export class AuthProvider {
 
     private extend(context: adal.AuthenticationContext): any {
 
-        (<any>context).isLoggedIn = function () {
+        (<any>context).isLoggedIn = function (): boolean {
             return context.getCachedUser() != null;
         };
-        (<any>context).processAdRedirect = function (): void {
 
-            console.log('processing ad redirect...');
+        (<any>context).processAdRedirect = function (): void {
+            console.log('process ad redirect...');
+            context.verbose('Processing the hash: ' + location.hash);
             if (context.isCallback(location.hash)) {
                 let requestInfo = context.getRequestInfo(location.hash);
                 context.saveTokenFromHash(requestInfo);
             }
         };
+
         return context;
     }
 

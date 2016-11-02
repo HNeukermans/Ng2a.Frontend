@@ -51,7 +51,7 @@ export class SignalRConnection {
         //create EstablishedConnection before done, to allow replaysubjects to emit all events that occurred priorly. 
         let establischedConnection = new EstablishedConnection(connection, proxy);
 
-        connection.start()
+        connection.start({ withCredentials: false })
             .done(function () {
                 console.log('Connection established, ID: ' + connection.id);
                 console.log('Connection established, Transport: ' + connection.transport.name);

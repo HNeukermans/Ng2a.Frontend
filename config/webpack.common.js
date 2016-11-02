@@ -22,7 +22,7 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
  */
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = {
-  title: 'Angular2 Webpack Starter by @gdi2290 from @AngularClass',
+  title: 'Ng2a-ChatApp',
   baseUrl: '/',
   isDevServer: helpers.isWebpackDevServer()
 };
