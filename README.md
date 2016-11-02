@@ -1,6 +1,14 @@
-# Angular2 - Asp Net Core - Azure (Ng2a)
+# Angular2 - Asp Net Core - Azure (Ng2a) - ChatApp
 
-This is a Ng2A sample project. 
+## Live demo hosted on azure
+ http://ng2a-hneu-web-ui.azurewebsites.net/<br>
+ 1. you can login with one of two: 
+  1. login: guestone@hneu.microsoft.com -paswoord: Test1234
+  2. login: guesttwo@hneu.microsoft.com -paswoord: Test1234
+ 2. wait for you friend to login and start chatting... 
+
+
+## This is a Ng2A sample project. 
 
   it uses:
    1. asp.net core (net452)
@@ -12,13 +20,6 @@ This is a Ng2A sample project.
    7. asp.net cors
    8. azure-github-ci-webhook
    
-   
-## live demo hosted on azure
- http://ng2a-hneu-web-ui.azurewebsites.net/<br>
- you can login with one of two: 
-  1. login: guestone@hneu.microsoft.com -paswoord: Test1234
-  2. login: guesttwo@hneu.microsoft.com -paswoord: Test1234
-
 ## Install
 
  1. setup your environment. (VS2015 + Visual studio code). Read section environment 
