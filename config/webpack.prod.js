@@ -16,9 +16,9 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 /**
  * Webpack Constants
  */
-const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-const HOST = process.env.HOST || 'localhost';
-const PORT = process.env.PORT || 3000;
+const ENV = process.env.ENV = process.env.NODE_ENV = 'production';
+const HOST = process.env.HOST || 'http://ng2a-hneu-web-ui.azurewebsites.net';
+const PORT = process.env.PORT || 80;
 const HMR = helpers.hasProcessFlag('hot');
 const METADATA = webpackMerge(commonConfig({
     env: ENV
