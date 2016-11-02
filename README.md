@@ -22,8 +22,9 @@
    9. azure app-insights (.js client)
    
 ## Screenshots
-![app-insights](https://cloud.githubusercontent.com/assets/2285199/19937840/1243b84a-a123-11e6-98f7-d9eb827f958f.png)
 ![chatbox](https://cloud.githubusercontent.com/assets/2285199/19937848/1a05e9a4-a123-11e6-926e-5da86a781511.png)
+![app-insights](https://cloud.githubusercontent.com/assets/2285199/19937840/1243b84a-a123-11e6-98f7-d9eb827f958f.png)
+
 
    
 ## Install
