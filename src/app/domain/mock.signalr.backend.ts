@@ -3,7 +3,40 @@ import { Observable, AsyncSubject, ReplaySubject } from 'rxjs';
 import { AuthProvider } from './auth.provider';
 import { SignalrMessage } from './message';
 
+
+export interface SignalrBackend {
+    status: Observable<{ status: string }>;
+    error: Observable<any>;
+    get(command: string): Observable<any>;
+    post(payload: any): Observable<any>;
+}
+
 export class EstablishedConnection {
+
+    //can take in MockConnection or nativeConnection
+    //can take in MockProxy or naviteProxy
+    
+    status: Observable<{ status: string }>;
+    error: Observable<any>;
+    constructor(private signalrBackend: SignalrBackend) {
+        this.error = signalrBackend.error;
+        this.status = signalrBackend.status;
+    }
+
+    public get(command: string): Observable<any> {
+        console.log('EstablishedConnection.sendMessage: ' + command);
+        return this.signalrBackend.get(command);
+    }
+
+    public post(payload: any): Observable<any> {
+        console.log('EstablishedConnection.sendMessage: ' + payload);
+       return this.signalrBackend.post(payload);
+    }
+}
+
+
+
+export class MockSignalrBackend {
 
     //can take in MockConnection or nativeConnection
     //can take in MockProxy or naviteProxy

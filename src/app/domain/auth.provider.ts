@@ -38,6 +38,8 @@ export class AuthProvider {
         return config;
     }
 
+    
+
     private extend(context: adal.AuthenticationContext): any {
 
         (<any>context).isLoggedIn = function (): boolean {

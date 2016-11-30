@@ -1,0 +1,60 @@
+.border {
+    border: 1px black solid;
+}
+
+.message_icon {
+    margin-top:4px;
+    height: 36px;
+    width: 36px;
+    display:inline-block;
+}
+
+.message {
+    padding-right: 40px;
+    border-top: 1px;
+    border-bottom: 1px;
+    clear: both;
+}
+
+.message_content_header{
+    font-weight:900;
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    color: #2c2d30; 
+    padding-bottom: 2px;
+    font-size: .9375rem;
+    line-height: 1.125rem;
+}
+
+.message_content {   
+    margin-left: 4px;
+    float: left
+}
+
+.message_body {   
+    font-family: Slack-Lato,appleLogo,sans-serif;
+    float: left;
+    cursor: text;
+}
+
+
+.message-gutter {
+    width: 62px;
+    xheight: 25px;
+    margin-right:10px;
+    xdisplay:inline-block;
+    text-align: right;
+    float: left
+}
+
+.member_image {
+    border-radius: .2rem;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    display: inline-block;
+    position: relative;
+}
+
+.member_image.thumb_36 {
+    width: 2.25rem;
+    height: 2.25rem;
+}

@@ -1,9 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, AsyncSubject, ReplaySubject } from 'rxjs';
-import { AuthProvider } from './auth.provider';
 import { SignalrMessage } from './message';
 
-export class EstablishedConnection {
+export class SignalrBackend {
 
     //can take in MockConnection or nativeConnection
     //can take in MockProxy or naviteProxy

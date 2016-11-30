@@ -1,7 +1,7 @@
 <div class="mycontainer border">
 	<div class="left border">
-    <avatar [name]="loggedInUserName" size="40"></avatar>
-    <hr style="margin-bottom: 24px;" />
+		<avatar [name]="loggedInUserName" size="40"></avatar>
+		<hr style="margin-bottom: 24px;" />
 		<div class="contacts">
 			<ul>
 				<li *ngFor="let name of usernames">
@@ -12,16 +12,16 @@
 	</div>
 	<div class="right border">
 		<div id="messages" class="messages">
-			<ul>
+			<!--<ul>
 				<li *ngFor="let m of messages">{{ m }}</li>
-			</ul>
+			</ul>-->
+			<chat-message *ngFor="let m of messages2" [model]="m"></chat-message>
 		</div>
 		<div class="form">
-			<div class="form-inner" >
+			<div class="form-inner">
 				<!--<input type="text" [(ngModel)]="enteredMessage"
 				#txtEnteredMessage (keyup.enter)="sendMessageDeclarative();" [formControl]="messageCtrl">-->
-				<input type="text" [(ngModel)]="txtMessage"
-				 [formControl]="messageCtrl" (keyup.enter)="txtMessageEnter$.next();">
+				<input type="text" [(ngModel)]="txtMessage" [formControl]="messageCtrl" (keyup.enter)="txtMessageEnter$.next();">
 				<!--<button (click)="sendMessageDeclarative();" >✚</button>-->
 				<button (click)="btnAddClick$.next()">✚</button>
 			</div>

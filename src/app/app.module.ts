@@ -25,6 +25,7 @@ import { ChatBox } from './chatbox';
 import { Avatar } from './avatar';
 import { Home2 } from './home.2';
 import { AppInsights } from './appinsights';
+import { ChatMessageComponent } from './chat.message/chat.message.component';
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
@@ -56,6 +57,7 @@ type StoreType = {
     XLarge,
     ChatBox,
     Avatar,
+    ChatMessageComponent,
     AppInsights
   ],
   imports: [ // import Angular's modules

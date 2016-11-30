@@ -62,3 +62,9 @@ npm-debug.log
 
 # secrets #
 .env
+
+npm-debug*
+
+#generated .js .js.map files#
+src/**/*.js
+src/**/*.js.map

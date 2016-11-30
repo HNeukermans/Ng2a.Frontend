@@ -11,6 +11,7 @@ import { FormControl } from '@angular/forms';
 })
 export class ChatBox implements OnDestroy, OnInit {
     messages: string[] = [];
+    messages2: SignalrMessage[] = [];
     usernames: string[] = [];
     loggedInUserName: string = '';
     txtMessageEnter$: ReplaySubject<any>;
@@ -49,6 +50,14 @@ export class ChatBox implements OnDestroy, OnInit {
             .map((args) => <SignalrMessage>args[0])
             .subscribe((sm) => this.bindNewMessage.bind(this)(sm), handleError);
 
+        let scMessageReceived2$ = new ServerCallBack('onMessageReceived')
+            .do(logToConsole('onMessageReceived'))
+            .map((args) => <SignalrMessage>args[0])
+            
+
+        //var cb = new ServerHubCallBack('bla');
+        //signalrConfig.register(cb); 
+
         let scUserSessionReceived$ = new ServerCallBack('onUserSessionReceived');
         let s2 = scUserSessionReceived$
             .do(logToConsole('onNewUserSessionReceived'))
@@ -62,30 +71,50 @@ export class ChatBox implements OnDestroy, OnInit {
 
         let onConnect = new SignalRConnection(signalrConfig).connect();
         onConnect.do(logToConsole('onConnect'));
-        let s3 = onConnect.map((conn) => conn.error).subscribe(e => console.log('ChatBox-Connection error occured: ' + JSON.stringify(e)));
-        let s4 = onConnect.map((conn) => conn.status).subscribe(s => console.log('ChatBox-Connection status changed: ' + JSON.stringify(s)));
+        onConnect.toPromise().then((conn) => conn.error.subscribe(e => console.log('ChatBox-Connection error occured: ' + JSON.stringify(e))));
+        onConnect.toPromise().then((conn) => conn.status.subscribe(s => console.log('ChatBox-Connection status changed: ' + JSON.stringify(s))));
 
-        let s5 = onConnect.flatMap((c) => c.getOtherUsers()).subscribe((usernames) => this.bindUsers.bind(this)(usernames));
+        
+        onConnect.toPromise().then((c) => c.getOtherUsers().subscribe((usernames) => this.bindUsers.bind(this)(usernames)));
         //.subscribe(, handleError);
 
-        let s6 = onConnect.combineLatest(onMessageSubmit)
+        let s6 = onConnect
+            .combineLatest(onMessageSubmit)
             .do(logToConsole('SubmittedDuringConnect'))
             .subscribe((args) => (<EstablishedConnection>args[0]).sendMessage(<SignalrMessage>args[1]), handleError);
+
+        //subscribe to all messages
+           //scanForIsIntermittent(); 
+        let s8 = onConnect
+            .combineLatest(onMessageSubmit)
+            .merge(scMessageReceived2$)
+            //.scan(this.isIntermittent)
+            .do(logToConsole('Transceived message'));
+           // .
+           // .subscribe((args) => (<EstablishedConnection>args[0]).sendMessage(<SignalrMessage>args[1]), handleError);
+
 
         let s7 = onMessageSubmit
             .subscribe((m) => this.bindNewMessageAndReset.bind(this)(m), handleError);
 
         this.loggedInUserName = this._authProvider.getContext().getCachedUser().profile.given_name;
 
-        this.subscriptions = [s1, s2, s3, s4, s5, s6, s7];
+        this.subscriptions = [s1, s2, s6, s7];//s8];
     }
 
-    private bindNewMessageAndReset(message: string) {
+    private isIntermittent(previousMessage: SignalrMessage, currentMessage: SignalrMessage){
+        return previousMessage.user !== currentMessage.user;
+    }
+
+    private bindNewMessageAndReset(message: SignalrMessage) {
         console.log('bindNewMessage, message : ' + this.txtMessage);
         //console.log('bindNewMessage, this : ' + JSON.stringify(this));
         let array = [...this.messages];
+        let array2 = [...this.messages2];
         array.push(this.txtMessage);
+        array2.push(message);
         this.messages = array;
+        this.messages2 = array2;
         this.changeDetector.detectChanges();
         let messagesEl = document.getElementById("messages");
         messagesEl.scrollTop = messagesEl.scrollHeight; //hack !!

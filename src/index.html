@@ -31,69 +31,174 @@
 
 	<app>
 		<style>
-			.loading {
-				background: rgba(223, 42, 42, 0.5);
-				border: 1px solid rgba(223, 42, 42, 0.1);
-				border-radius: 10px;
-				box-shadow: 0 0 16px rgba(186, 28, 28, 0.5);
-				display: block;
-				margin-top: -20px;
-				margin-left: -35px;
-				position: absolute;
-				top: 50%;
-				left: 50%;
-				z-index: 9999;
-				width: 70px;
-				height: 40px;
+			.c-slack {
+				position: relative;
+				z-index: 100;
+				margin: 80px auto;
+				width: 192px;
+				height: 192px;
+				transform: rotate(-15deg)
 			}
 			
-			.loading::before,
-			.loading::after {
-				animation: loading-dots 1s infinite;
-				background: #df2a2a;
-				border-radius: 10px;
-				content: "";
+			.c-slack__dot {
 				display: block;
 				position: absolute;
-				top: 10px;
-				width: 20px;
-				height: 20px;
+				width: 36px;
+				height: 36px;
+				border-radius: 36px;
+				mix-blend-mode: multiply
 			}
 			
-			.loading::before {
-				left: 10px;
+			.c-slack__dot--a {
+				top: 0;
+				left: 0;
+				background-color: #3eb991;
+				transform: translateX(36px);
+				animation: slack-animation--a 2s infinite
 			}
 			
-			.loading::after {
-				animation-delay: 0.5s;
-				right: 10px;
+			.c-slack__dot--b {
+				top: 0;
+				right: 0;
+				background-color: #6ecadc;
+				transform: translateY(36px);
+				animation: slack-animation--b 2s infinite
 			}
 			
-			@keyframes loading-dots {
+			.c-slack__dot--c {
+				bottom: 0;
+				right: 0;
+				background-color: #e9a820;
+				transform: translateX(-36px);
+				animation: slack-animation--c 2s infinite
+			}
+			
+			.c-slack__dot--d {
+				bottom: 0;
+				left: 0;
+				background-color: #e01563;
+				transform: translateY(-36px);
+				animation: slack-animation--d 2s infinite
+			}
+			
+			@keyframes slack-animation--a {
 				0% {
-					opacity: 1;
-					-moz-transform: scale(1);
-					-ms-transform: scale(1);
-					-webkit-transform: scale(1);
-					transform: scale(1);
+					top: 0;
+					bottom: auto;
+					height: 36px
 				}
-				50% {
-					opacity: 0.5;
-					-moz-transform: scale(0.9);
-					-ms-transform: scale(0.9);
-					-webkit-transform: scale(0.9);
-					transform: scale(0.9);
+				33% {
+					top: 0;
+					bottom: auto;
+					height: 192px
+				}
+				34% {
+					top: auto;
+					bottom: 0;
+					height: 192px
+				}
+				66% {
+					top: auto;
+					bottom: 0;
+					height: 36px
 				}
 				100% {
-					opacity: 1;
-					-moz-transform: scale(1);
-					-ms-transform: scale(1);
-					-webkit-transform: scale(1);
-					transform: scale(1);
+					top: auto;
+					bottom: 156px;
+					height: 36px
+				}
+			}
+			
+			@keyframes slack-animation--b {
+				0% {
+					right: 0;
+					left: auto;
+					width: 36px
+				}
+				33% {
+					right: 0;
+					left: auto;
+					width: 192px
+				}
+				34% {
+					right: auto;
+					left: 0;
+					width: 192px
+				}
+				66% {
+					right: auto;
+					left: 0;
+					width: 36px
+				}
+				100% {
+					right: auto;
+					left: 156px;
+					width: 36px
+				}
+			}
+			
+			@keyframes slack-animation--c {
+				0% {
+					bottom: 0;
+					top: auto;
+					height: 36px
+				}
+				33% {
+					bottom: 0;
+					top: auto;
+					height: 192px
+				}
+				34% {
+					bottom: auto;
+					top: 0;
+					height: 192px
+				}
+				66% {
+					bottom: auto;
+					top: 0;
+					height: 36px
+				}
+				100% {
+					bottom: auto;
+					top: 156px;
+					height: 36px
+				}
+			}
+			
+			@keyframes slack-animation--d {
+				0% {
+					left: 0;
+					right: auto;
+					width: 36px
+				}
+				33% {
+					left: 0;
+					right: auto;
+					width: 192px
+				}
+				34% {
+					left: auto;
+					right: 0;
+					width: 192px
+				}
+				66% {
+					left: auto;
+					right: 0;
+					width: 36px
+				}
+				100% {
+					left: auto;
+					right: 156px;
+					width: 36px
 				}
 			}
 		</style>
-		<div class="loading"></div>
+		<div class="c-slack">
+			<span class="c-slack__dot c-slack__dot--a"></span>
+			<span class="c-slack__dot c-slack__dot--b"></span>
+			<span class="c-slack__dot c-slack__dot--c"></span>
+			<span class="c-slack__dot c-slack__dot--d"></span>
+		</div>
 	</app>
 
 	<% if (webpackConfig.metadata.isDevServer && webpackConfig.metadata.HMR !== true) { %>
