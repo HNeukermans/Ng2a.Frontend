@@ -5,6 +5,8 @@ import { EstablishedConnection } from './established.connection';
 import { DefaultSignalrConfig, ServerCallBack, SignalrConfig } from './signalr.config.default';
 import 'expose?jQuery!jquery';
 import '../../../node_modules/signalr/jquery.signalR.js';
+import { HubConnectionBackend } from './connnection.backend';
+import { HubConnection } from './hub.connection';
 
 declare var jQuery: any;
 
@@ -16,16 +18,25 @@ export class SignalRConnection {
     username: string = '';
     logging: boolean = true;
     error: Observable<any>;
-    constructor(config: SignalrConfig) {
-        this.url = config.url || '';
-        this.hubName = config.hubName || '';
-        this.username = config.username;
-        this.serverCallBacks = config.serverCallBacks;
-        this.logging = config.logging || true;
+    // constructor(config: SignalrConfig) {
+    //     this.url = config.url || '';
+    //     this.hubName = config.hubName || '';
+    //     this.username = config.username;
+    //     this.serverCallBacks = config.serverCallBacks;
+    //     this.logging = config.logging || true;
+    // }
+
+    constructor(
+        protected _backend: HubConnectionBackend) {
+
     }
 
-    public connect(): Observable<EstablishedConnection> {
 
+
+    public connect(): Observable<HubConnection> {
+
+        return this._backend.createConnection();
+    }
         let oResult = new AsyncSubject<EstablishedConnection>();
         // create connection object
         let connection = (<any>window).jQuery.hubConnection(this.url);

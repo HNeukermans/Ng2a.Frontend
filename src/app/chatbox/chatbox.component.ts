@@ -69,7 +69,7 @@ export class ChatBox implements OnDestroy, OnInit {
         signalrConfig.serverCallBacks.push(scMessageReceived$);
         signalrConfig.serverCallBacks.push(scUserSessionReceived$);
 
-        let onConnect = new SignalRConnection(signalrConfig).connect();
+        let onConnect = new SignalRConnection(this.signalrConfig).connect();
         onConnect.do(logToConsole('onConnect'));
         onConnect.toPromise().then((conn) => conn.error.subscribe(e => console.log('ChatBox-Connection error occured: ' + JSON.stringify(e))));
         onConnect.toPromise().then((conn) => conn.status.subscribe(s => console.log('ChatBox-Connection status changed: ' + JSON.stringify(s))));
