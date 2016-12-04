@@ -14,16 +14,17 @@ declare var jQuery: any;
 
 @Injectable()
 export class SignalR {
-       
+
     constructor(
         protected _connectionBackend: HubConnectionBackend) {
+        console.log('initializing SignalR');
     }
-    
+
     public configure(config: SignalrConfig): SignalrConnect {
 
         this._connectionBackend.configuration = config;
         return new SignalrConnect(this._connectionBackend);
-    }   
+    }
 }
 
 

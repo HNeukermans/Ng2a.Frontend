@@ -1,6 +1,6 @@
 import { Component, ChangeDetectorRef, ElementRef, OnDestroy, OnInit, AfterViewInit, Renderer } from '@angular/core';
 import { AuthProvider, logToConsole } from '../domain';
-import { SignalR, SignalrConfig, HubCallBack, SignalrMessage } from '../domain/signalr';
+import { SignalrConfig, HubCallBack, SignalrMessage } from '../domain/signalr';
 import { handleError } from '../domain';
 import { Observable, AsyncSubject, BehaviorSubject, Subscription, ReplaySubject } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -25,7 +25,6 @@ export class ChatBox implements OnDestroy, OnInit {
 
     constructor(
         private _authProvider: AuthProvider,
-        private signalR: SignalR,
         private changeDetector: ChangeDetectorRef) {
 
         this.txtMessageEnter$ = new ReplaySubject<any>();
@@ -36,7 +35,6 @@ export class ChatBox implements OnDestroy, OnInit {
 
     ngOnInit() {
         console.log('hello from Chatbox');
-
 
         this.btnAddClick$.do(logToConsole('onBtnAddClick'));
         this.txtMessageEnter$.do(logToConsole('onTxtMessageEnter'));
@@ -83,7 +81,7 @@ export class ChatBox implements OnDestroy, OnInit {
             .subscribe((args) => (<HubConnection>args[0]).invoke('sendMessage', <SignalrMessage>args[1]), handleError);
 
         //subscribe to all messages
-           //scanForIsIntermittent(); 
+        //scanForIsIntermittent(); 
         let s8 = onConnect
             .combineLatest(onMessageSubmit)
             .merge(scMessageReceived2$)
@@ -102,12 +100,14 @@ export class ChatBox implements OnDestroy, OnInit {
     }
 
     private createSignalrConfig() : SignalrConfig {
+        var configUrl = APP_CONFIG.CHAT_APP_URL;
         let config = new SignalrConfig();
-        config.hubName = '';
-        config.logging = true;
-        config.username = '';
+        config.hubName = 'ChatAppHub';
+        config.username =  this.getloggedInUserName();
+        config.url = configUrl;
         return config;
     }
+
 
     private isIntermittent(previousMessage: SignalrMessage, currentMessage: SignalrMessage){
         return previousMessage.user !== currentMessage.user;
@@ -163,12 +163,13 @@ export class ChatBox implements OnDestroy, OnInit {
     //     });
     // }
 
-    private getloggedInUserName() {
+     private getloggedInUserName() {
         let user = this._authProvider.getContext().getCachedUser();
         if (!user) throw new Error('Failed to get logged in user name. User must be authenticated!');
         return user.profile.given_name;
     }
 
+    
     private onNewUserSessionReceived() {
         console.log('onNewUserSessionReceived');
     }

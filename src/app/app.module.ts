@@ -26,13 +26,30 @@ import { Avatar } from './avatar';
 import { Home2 } from './home.2';
 import { AppInsights } from './appinsights';
 import { ChatMessageComponent } from './chat.message/chat.message.component';
+import { SignalR, RealHubConnectionBackend } from './domain/signalr';
+import { HubConnectionBackend } from './domain/signalr/hub/connection.backend/hub.connnection.backend';
+
+
+console.log('initializing module');
 // Application wide providers
 const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState,
   ValueService,
-  AuthProvider
+  AuthProvider,
+  HubConnectionBackend,
+  RealHubConnectionBackend,
+  {
+    provide: 'SignalR',
+    useFactory: cs,
+    deps: [RealHubConnectionBackend]
+  }
 ];
+
+function cs(backend: RealHubConnectionBackend): SignalR {
+  console.log('initializing SignalR');
+  return new SignalR(backend);
+}
 
 type StoreType = {
   state: InternalStateType,

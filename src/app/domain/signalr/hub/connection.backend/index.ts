@@ -1,3 +1,3 @@
 export * from './hub.connnection.backend';
-export * from './mock.hub.connnection.backend';
-export * from './real.hub.connnection.backend';
+export * from './mock.hub.connection.backend';
+export * from './real.hub.connection.backend';

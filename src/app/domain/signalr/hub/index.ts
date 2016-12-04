@@ -1,3 +1,3 @@
 export * from './hub.callback';
-export * from './connnection';
-export * from './connnection.backend';
+export * from './connection';
+export * from './connection.backend';
