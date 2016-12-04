@@ -1,30 +1,30 @@
 import { Observable } from 'rxjs/Observable';
 import { AsyncSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { SignalrConfig } from '../signalr.config.default';
 import { RealHubConnection } from '../connection/real.hub.connection';
 import { HubConnectionBackend } from './hub.connnection.backend';
+import { SignalrConfig } from '../../signalr/signalr.confguration';
 
 @Injectable()
 export class RealHubConnectionBackend extends HubConnectionBackend {
     
-     constructor(protected _config : SignalrConfig) {
+     constructor() {
          super();
      }
-
+    
      public createConnection(): Observable<RealHubConnection> {
          
         let oResult = new AsyncSubject<RealHubConnection>();
         // create connection object
-        let connection = (<any>window).jQuery.hubConnection(this._config.url);
-        connection.logging = this._config.logging;
-        connection.qs = { user: this._config.username };
+        let connection = (<any>window).jQuery.hubConnection(this.configuration.url);
+        connection.logging = this.configuration.logging;
+        connection.qs = { user: this.configuration.username };
 
         // create a proxy
-        let proxy = connection.createHubProxy(this._config.hubName);
+        let proxy = connection.createHubProxy(this.configuration.hubName);
 
         // wire up server-event handlers
-        this._config.serverCallBacks.forEach(callBack => {
+        this.configuration.hubCallBacks.forEach(callBack => {
             proxy.on(
                 callBack.method,
                 function (...args) {

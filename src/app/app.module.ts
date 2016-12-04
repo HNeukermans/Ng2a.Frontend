@@ -19,7 +19,7 @@ import { Home } from './home';
 import { About } from './about';
 import { NoContent, EmptyContent } from './no-content';
 import { XLarge } from './home/x-large';
-import { ValueService, SignalRService, AuthProvider, DefaultSignalrConfig } from './domain';
+import { ValueService, AuthProvider } from './domain';
 
 import { ChatBox } from './chatbox';
 import { Avatar } from './avatar';
@@ -31,9 +31,7 @@ const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState,
   ValueService,
-  SignalRService,
-  AuthProvider,
-  DefaultSignalrConfig
+  AuthProvider
 ];
 
 type StoreType = {

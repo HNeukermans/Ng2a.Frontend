@@ -6,13 +6,26 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RealHubConnection extends HubConnection {
     
-    status: Observable<{ status: string }>;
-    error: Observable<any>;
+    public status: Observable<{ status: string }>;
+    public error: Observable<any>;
 
     constructor(protected _connection:any, protected _proxy:any) {
         super();
         this.error = this.wireUpErrorsAsObservable();
         this.status = this.wireUpStatusEventsAsObservable();
+    }
+
+    public invoke(method: string, ...parameters: any[]): Observable<any> {
+        let sInvoke = new AsyncSubject();
+        this._proxy.invoke(method, ...parameters)
+            .done(function (...results) {
+                sInvoke.next(results);
+                sInvoke.complete();
+            })
+            .fail(function (err) {
+                sInvoke.error(err);
+            });
+        return sInvoke;
     }
 
     private wireUpErrorsAsObservable(): Observable<any> {
@@ -34,18 +47,5 @@ export class RealHubConnection extends HubConnection {
             });
         });
         return sStatus;
-    }
-
-    public remoteInvoke(method: string, ...parameters: any[]): Observable<any> {
-        let sInvoke = new AsyncSubject();
-        this._proxy.invoke(method, ...parameters)
-            .done(function (...results) {
-                sInvoke.next(results);
-                sInvoke.complete();
-            })
-            .fail(function (err) {
-                sInvoke.error(err);
-            });
-        return sInvoke;
     }
 }

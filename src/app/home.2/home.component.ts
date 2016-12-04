@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthProvider, SignalRService } from '../domain';
+import { AuthProvider } from '../domain';
 
 @Component({
   selector: 'home',
@@ -10,8 +10,7 @@ export class Home2 {
 
   user: any = null;
   constructor(
-    private _authprovider: AuthProvider,
-    private _signalrService: SignalRService) {
+    private _authprovider: AuthProvider) {
   }
 
   ngOnInit() {
@@ -34,7 +33,7 @@ export class Home2 {
   }
 
   fakeSession() {
-    this._signalrService.signalNewUserSession('Fake Frank');
+    //this._signalrService.signalNewUserSession('Fake Frank');
     let context = this._authprovider.getContext();
     this.user = context.getCachedUser();
   }

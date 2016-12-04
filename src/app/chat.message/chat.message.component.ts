@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SignalrMessage } from '../domain/message';
+import { SignalrMessage } from '../domain/signalr';
 
 @Component({
 	selector: 'chat-message',

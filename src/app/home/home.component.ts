@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { ValueService } from '../domain/';
 import { Title } from './title';
 import { XLarge } from './x-large';
-import { SignalRService } from '../domain';
 import { Message } from 'primeng/primeng';
 import { ChatBox } from '../chatbox';
 import { AuthProvider } from '../domain';
@@ -21,7 +20,6 @@ export class Home {
 
   constructor(
       public valueService: ValueService,
-      private _signalRService: SignalRService,
       private _authprovider: AuthProvider) {
   }
 
@@ -36,7 +34,6 @@ export class Home {
   }
 
   sendMessage() {
-    this._signalRService.sendChatMessage('my message !!!');
   }
 
   login() {

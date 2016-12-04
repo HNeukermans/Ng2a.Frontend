@@ -1,7 +1,7 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { AppState } from './app.service';
 import { Router } from '@angular/router';
-import { AuthProvider, SignalRService } from './domain';
+import { AuthProvider } from './domain';
 import 'style!css!../../node_modules/primeng/resources/themes/omega/theme.css';
 import 'style!css!../../node_modules/font-awesome/css/font-awesome.min.css';
 import 'style!css!../../node_modules/primeng/resources/primeng.min.css';
@@ -22,8 +22,7 @@ export class App {
   constructor(
     public appState: AppState,
     private _router: Router,
-    private _authProvider: AuthProvider,
-    private _signalrService: SignalRService) {
+    private _authProvider: AuthProvider) {
   }
 
   ngOnInit() {
