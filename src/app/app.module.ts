@@ -26,8 +26,10 @@ import { Avatar } from './avatar';
 import { Home2 } from './home.2';
 import { AppInsights } from './appinsights';
 import { ChatMessageComponent } from './chat.message/chat.message.component';
-import { SignalR, RealHubConnectionBackend } from './domain/signalr';
-import { HubConnectionBackend } from './domain/signalr/hub/connection.backend/hub.connnection.backend';
+import { HubBackend } from './domain/signalr/hub/backend/hub.backend';
+import { SignalrEngine } from './domain/signalr/signalr.engine';
+import { RealHubBackend } from './domain/signalr/hub/backend/real.hub.backend';
+import { SignalrModule } from './domain/signalr/signalr.module';
 
 
 console.log('initializing module');
@@ -37,19 +39,15 @@ const APP_PROVIDERS = [
   AppState,
   ValueService,
   AuthProvider,
-  HubConnectionBackend,
-  RealHubConnectionBackend,
-  {
-    provide: 'SignalR',
-    useFactory: cs,
-    deps: [RealHubConnectionBackend]
-  }
+  // RealHubBackend,
+  // {
+  //   provide: SignalrEngine,
+  //   useFactory: (backend) => new SignalrEngine(backend),
+  //   deps: [RealHubBackend]
+  // }
 ];
 
-function cs(backend: RealHubConnectionBackend): SignalR {
-  console.log('initializing SignalR');
-  return new SignalR(backend);
-}
+
 
 type StoreType = {
   state: InternalStateType,
@@ -86,6 +84,7 @@ type StoreType = {
     ProgressBarModule,
     GrowlModule,
     CheckboxModule,
+    SignalrModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

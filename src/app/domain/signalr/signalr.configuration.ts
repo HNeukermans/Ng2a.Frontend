@@ -12,9 +12,9 @@ export class SignalrConfig {
 
     constructor() {
        this.hubCallBacks = new Array<HubCallBack>();  
-       this.hubName = '';
-       this.logging = true;
-       this.username = '';
+       this.hubName = null;
+       this.logging = false;
+       this.username = null;
        this.url = null;
        this.queryParams = null;
     }

@@ -22,6 +22,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
 import 'primeng/primeng';
+import 'expose?jQuery!jquery';
+import '../node_modules/signalr/jquery.signalR.js';
 
 if ('production' === ENV) {
   // Production

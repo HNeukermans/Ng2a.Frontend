@@ -10,7 +10,7 @@ require('dotenv').load();
  */
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
-
+const ExtendedDefinePlugin = require('extended-define-webpack-plugin');
 /**
  * Webpack Constants
  */
@@ -203,6 +203,14 @@ module.exports = function (options) {
           'ENV': JSON.stringify(ENV),
           'NODE_ENV': JSON.stringify(ENV),
           'HMR': false,
+        }
+      }),
+
+      new ExtendedDefinePlugin({
+        APP_CONFIG: {
+          CHAT_APP_URL: 'http://ng2a-hneu-web-app.azurewebsites.net',
+          AD_DIRECTORY_ID: process.env.SECRET_AD_DIRECTORY_ID, //secret id stored in .gitignore file .env
+          ENV: 'prod'
         }
       }),
 

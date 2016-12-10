@@ -2,18 +2,18 @@ import { Observable } from 'rxjs/Observable';
 import { AsyncSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { RealHubConnection } from '../connection/real.hub.connection';
-import { HubConnectionBackend } from './hub.connnection.backend';
 import { SignalrConfig } from '../../signalr/signalr.confguration';
+import { HubBackend } from './hub.backend';
 
 @Injectable()
-export class RealHubConnectionBackend extends HubConnectionBackend {
-    
-     constructor() {
-         super();
-     }
-    
-     public createConnection(): Observable<RealHubConnection> {
-         
+export class RealHubBackend extends HubBackend {
+
+    constructor() {
+        super();
+    }
+
+    public createConnection(): Observable<RealHubConnection> {
+
         let oResult = new AsyncSubject<RealHubConnection>();
         // create connection object
         let connection = (<any>window).jQuery.hubConnection(this.configuration.url);
@@ -51,5 +51,5 @@ export class RealHubConnectionBackend extends HubConnectionBackend {
                 oResult.error('Failed to connect. Error: ' + error);
             });
         return oResult;
-     }
+    }
 }
