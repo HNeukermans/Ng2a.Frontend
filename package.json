@@ -86,7 +86,7 @@
     "rxjs": "^5.0.0-rc.1",
     "signalr": "^2.2.1",
     "source-map": "^0.5.6",
-    "zone.js": "~0.6.17"
+    "zone.js": "~0.6.17" 
   },
   "devDependencies": {
     "@types/hammerjs": "^2.0.33",
