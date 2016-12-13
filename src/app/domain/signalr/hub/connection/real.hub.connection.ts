@@ -15,7 +15,7 @@ export class RealHubConnection extends HubConnection {
         this.status = this.wireUpStatusEventsAsObservable();
     }
 
-    public invoke(method: string, ...parameters: any[]): Observable<any> {
+    public query(method: string, ...parameters: any[]): Observable<any> {
         let sInvoke = new AsyncSubject();
         this._proxy.invoke(method, ...parameters)
             .done(function (...results) {

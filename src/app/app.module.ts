@@ -15,11 +15,9 @@ import { ROUTES } from './app.routes';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InternalStateType } from './app.service';
-import { Home } from './home';
 import { About } from './about';
 import { NoContent, EmptyContent } from './no-content';
-import { XLarge } from './home/x-large';
-import { ValueService, AuthProvider } from './domain';
+import { ValueService } from './domain';
 
 import { ChatBox } from './chatbox';
 import { Avatar } from './avatar';
@@ -29,7 +27,7 @@ import { ChatMessageComponent } from './chat.message/chat.message.component';
 import { HubBackend } from './domain/signalr/hub/backend/hub.backend';
 import { SignalrEngine } from './domain/signalr/signalr.engine';
 import { RealHubBackend } from './domain/signalr/hub/backend/real.hub.backend';
-import { SignalrModule } from './domain/signalr/signalr.module';
+//import { SignalrModule } from './domain/signalr/signalr.module';
 
 
 console.log('initializing module');
@@ -38,7 +36,6 @@ const APP_PROVIDERS = [
   ...APP_RESOLVER_PROVIDERS,
   AppState,
   ValueService,
-  AuthProvider,
   // RealHubBackend,
   // {
   //   provide: SignalrEngine,
@@ -63,11 +60,9 @@ type StoreType = {
   declarations: [
     App,
     About,
-    Home,
     Home2,
     NoContent,
     EmptyContent,
-    XLarge,
     ChatBox,
     Avatar,
     ChatMessageComponent,
@@ -83,8 +78,7 @@ type StoreType = {
     InputTextModule,
     ProgressBarModule,
     GrowlModule,
-    CheckboxModule,
-    SignalrModule
+    CheckboxModule
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

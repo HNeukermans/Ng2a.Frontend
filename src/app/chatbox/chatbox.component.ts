@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, ElementRef, OnDestroy, OnInit, AfterViewInit, Renderer } from '@angular/core';
-import { AuthProvider, logToConsole } from '../domain';
+import { logToConsole } from '../domain';
 import { handleError } from '../domain';
 import { Observable, AsyncSubject, BehaviorSubject, Subscription, ReplaySubject } from 'rxjs';
 import { FormControl } from '@angular/forms';
@@ -8,12 +8,15 @@ import { HubCallBack } from '../domain/signalr/hub/hub.callback';
 import { SignalrConfig } from '../domain/signalr/signalr.configuration';
 import { SignalrMessage } from '../domain/signalr/signalr.message';
 import { SignalrEngine } from '../domain/signalr/signalr.engine';
-
+//import { SignalrBackend } from '../domain/signalr/signalr.backend';
+import { HubEventWatcher } from '../domain/signalr/hub/hub.event.watcher';
+import { Security } from '../domain/auth/security';
 
 @Component({
     selector: 'chatbox',  // <home></home>
-    styleUrls: ['./chatbox.component.css'],
-    templateUrl: './chatbox.component.html'
+    styles: [require('./chatbox.component.css')],
+    //templateUrl: './chatbox.component.html'
+    template: require('./chatbox.component.html')
 })
 export class ChatBox implements OnDestroy, OnInit {
     messages: string[] = [];
@@ -27,8 +30,7 @@ export class ChatBox implements OnDestroy, OnInit {
     messageCtrl = new FormControl();
 
     constructor(
-        private _authProvider: AuthProvider,
-        private _signalR: SignalrEngine,
+        //private _signalR: SignalrEngine,
         private changeDetector: ChangeDetectorRef) {
 
         this.txtMessageEnter$ = new ReplaySubject<any>();
@@ -49,53 +51,53 @@ export class ChatBox implements OnDestroy, OnInit {
             .map(() => new SignalrMessage(this.loggedInUserName, this.txtMessage))
             .do(logToConsole('onMessageSubmit'));
 
-        let scMessageReceived$ = new HubCallBack('onMessageReceived');
+        let scMessageReceived$ = new HubEventWatcher('onMessageReceived');
         let s1 = scMessageReceived$
             .do(logToConsole('onMessageReceived'))
-            .map((args) => <SignalrMessage>args[0])
+            //.map((args) => <SignalrMessage>args[0])
             .subscribe((sm) => this.bindNewMessage.bind(this)(sm), handleError);
 
-        let scMessageReceived2$ = new HubCallBack('onMessageReceived')
-            .do(logToConsole('onMessageReceived'))
-            .map((args) => <SignalrMessage>args[0])
+        let watchMessagesSent$ = new HubEventWatcher('MessageSent');
+        //   .do(logToConsole('onMessageReceived'));
+        //.map((args) => <SignalrMessage>args[0])
 
         // let onHubMessageReceived = new HubEventWatcher('OnMessageReceived')
         //     .do(logToConsole('onMessageReceived'))
         //     .map((args) => <SignalrMessage>args[0])
 
-        let scUserSessionReceived$ = new HubCallBack('onUserSessionReceived');
-        let s2 = scUserSessionReceived$
+        let watchUsersConnected$ = new HubEventWatcher('UserConnected');
+        let s2 = watchUsersConnected$
             .do(logToConsole('onNewUserSessionReceived'))
             .map((args) => <string>args[0])
             .subscribe((u) => this.bindNewUser.bind(this)(u), handleError);
 
         let signalrConfig = this.createSignalrConfig();
 
-        signalrConfig.hubCallBacks.push(scMessageReceived$);
-        signalrConfig.hubCallBacks.push(scUserSessionReceived$);
+        //signalrConfig.hubCallBacks.push(scMessageReceived$);
+        //signalrConfig.hubCallBacks.push(scUserSessionReceived$);
 
-        let onConnect = this._signalR.configure(signalrConfig).connect();
+        let onConnect = SignalrEngine.connect([watchMessagesSent$, watchUsersConnected$], signalrConfig);
         //let onConnect = this._signalR.watch(hubMessageReceivedWatcher).connect();
         //let onConnect = new SignalRConnection(this.signalrConfig).connect();
-        onConnect.do(logToConsole('onConnect'));
-        onConnect.toPromise().then((conn) => conn.error.subscribe(e => console.log('ChatBox-Connection error occured: ' + JSON.stringify(e))));
-        onConnect.toPromise().then((conn) => conn.status.subscribe(s => console.log('ChatBox-Connection status changed: ' + JSON.stringify(s))));
+        //onConnect.do(logToConsole('onConnect'));
+        //onConnect.then((conn) => conn.error.subscribe(e => console.log('ChatBox-Connection error occured: ' + JSON.stringify(e))));
+        //onConnect.toPromise().then((conn) => conn.status.subscribe(s => console.log('ChatBox-Connection status changed: ' + JSON.stringify(s))));
 
-        onConnect.toPromise().then((c) => c.invoke('getOtherUsers').subscribe((usernames) => this.bindUsers.bind(this)(usernames)));
+        onConnect.then((c) => c.query('QueryUsers').subscribe((usernames) => this.bindUsers.bind(this)(usernames)));
         //.subscribe(, handleError);
 
-        let s6 = onConnect
-            .combineLatest(onMessageSubmit)
-            .do(logToConsole('SubmittedDuringConnect'))
-            .subscribe((args) => (<HubConnection>args[0]).invoke('sendMessage', <SignalrMessage>args[1]), handleError);
+        // let s6 = onConnect
+        //     .combineLatest(onMessageSubmit)
+        //     .do(logToConsole('SubmittedDuringConnect'))
+        //     .subscribe((args) => (<HubConnection>args[0]).invoke('sendMessage', <SignalrMessage>args[1]), handleError);
 
         //subscribe to all messages
         //scanForIsIntermittent(); 
-        let s8 = onConnect
-            .combineLatest(onMessageSubmit)
-            .merge(scMessageReceived2$)
-            //.scan(this.isIntermittent)
-            .do(logToConsole('Transceived message'));
+        // let s8 = onConnect
+        //     .combineLatest(onMessageSubmit)
+        //     .merge(scMessageReceived2$)
+        //     //.scan(this.isIntermittent)
+        //     .do(logToConsole('Transceived message'));
         // .
         // .subscribe((args) => (<EstablishedConnection>args[0]).sendMessage(<SignalrMessage>args[1]), handleError);
 
@@ -103,17 +105,16 @@ export class ChatBox implements OnDestroy, OnInit {
         let s7 = onMessageSubmit
             .subscribe((m) => this.bindNewMessageAndReset.bind(this)(m), handleError);
 
-        this.loggedInUserName = this._authProvider.getContext().getCachedUser().profile.given_name;
+        this.loggedInUserName = Security.user().given_name;
 
-        this.subscriptions = [s1, s2, s6, s7];//s8];
+        //this.subscriptions = [s1, s2, s6, s7];//s8];
     }
 
     private createSignalrConfig(): SignalrConfig {
-        var configUrl = APP_CONFIG.CHAT_APP_URL;
         let config = new SignalrConfig();
         config.hubName = 'ChatAppHub';
-        config.username = this.getloggedInUserName();
-        config.url = configUrl;
+        config.username = Security.user().given_name;
+        config.url = APP_CONFIG.CHAT_APP_URL;
         return config;
     }
 
@@ -172,11 +173,11 @@ export class ChatBox implements OnDestroy, OnInit {
     //     });
     // }
 
-    private getloggedInUserName() {
-        let user = this._authProvider.getContext().getCachedUser();
-        if (!user) throw new Error('Failed to get logged in user name. User must be authenticated!');
-        return user.profile.given_name;
-    }
+    // private getloggedInUserName() {
+    //     let user = this._authProvider.getContext().getCachedUser();
+    //     if (!user) throw new Error('Failed to get logged in user name. User must be authenticated!');
+    //     return user.profile.given_name;
+    // }
 
 
     private onNewUserSessionReceived() {

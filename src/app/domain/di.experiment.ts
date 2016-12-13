@@ -1,21 +1,21 @@
-import { Injectable } from '@angular/core';
+// import { Injectable } from '@angular/core';
 
-@Injectable()
-export class INeedA {
+// @Injectable()
+// export class INeedA {
 
-    constructor(public a: A) {
+//     constructor(public a: A) {
 
-    }
+//     }
 
-    writeMessage() {
-        console.log(this.a.message);
-    }
-}
+//     writeMessage() {
+//         console.log(this.a.message);
+//     }
+// }
 
-@Injectable()
-export class A {
+// @Injectable()
+// export class A {
 
-    constructor() {
+//     constructor() {
 
-    }
-}
+//     }
+// }

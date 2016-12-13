@@ -32,7 +32,7 @@ module.exports = function (config) {
      * available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
      */
     //preprocessors: { './config/spec-bundle.js': ['coverage', 'webpack', 'sourcemap'] },
-    preprocessors: { './config/spec-bundle.js': [ 'webpack', 'sourcemap'] },
+    preprocessors: { './config/spec-bundle.js': ['webpack', 'sourcemap'] },
 
     // Webpack Config at ./webpack.test.js
     webpack: testWebpackConfig,
@@ -78,8 +78,8 @@ module.exports = function (config) {
      * available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
      */
     browsers: [
-      'PhantomJS',
-      //'Chrome'
+      //'PhantomJS',
+      'Chrome'
     ],
 
     customLaunchers: {

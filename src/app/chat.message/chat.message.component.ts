@@ -3,8 +3,8 @@ import { SignalrMessage } from '../domain/signalr';
 
 @Component({
 	selector: 'chat-message',
-	templateUrl: 'chat.message.component.html',
-	styleUrls: ['chat.message.component.css']
+	template: require('./chat.message.component.html'),
+	styles: [require('./chat.message.component.css')]
 })
 
 export class ChatMessageComponent implements OnInit {

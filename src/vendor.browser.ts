@@ -24,6 +24,7 @@ import 'rxjs/add/operator/mergeMap';
 import 'primeng/primeng';
 import 'expose?jQuery!jquery';
 import '../node_modules/signalr/jquery.signalR.js';
+//import 'expose?AuthenticationContext!../node_modules/adal-angular/lib/adal.js';
 
 if ('production' === ENV) {
   // Production

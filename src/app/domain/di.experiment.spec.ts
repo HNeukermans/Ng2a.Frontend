@@ -7,9 +7,9 @@
 // import { RealHubConnectionBackend } from './signalr/hub/connection.backend/real.hub.connection.backend';
 // import { SignalrEngine } from './signalr/signalr.engine';
 // import { SignalrConfig } from './signalr/signalr.configuration';
-// import { MockHubConnectionBackend } from './signalr/hub/connection.backend/mock.hub.connection.backend';
+// import { HubConnectionMockBackend } from './signalr/hub/connection.backend/hub.connection.mock.backend';
 // import { ChatBox } from '../chatbox/chatbox.component';
-// import { MockHubConnection } from './signalr/hub/connection/mock.hub.connection';
+// import { HubConnectionMock } from './signalr/hub/connection/hub.connection.mock';
 // import { AuthProvider } from './auth.provider';
 // import { HubCallBack } from './signalr/hub/hub.callback';
 
@@ -19,11 +19,11 @@
 //             ChatBox,
 //             AuthProvider,
 //             ChangeDetectorRef,
-//             MockHubConnectionBackend,
+//             HubConnectionMockBackend,
 //             {
 //                 provide: SignalrEngine,
 //                 useFactory: (backend) => new SignalrEngine(backend),
-//                 deps: [MockHubConnectionBackend]
+//                 deps: [HubConnectionMockBackend]
 //             }
 //         ]
 //     }));
@@ -32,13 +32,13 @@
 //         expect(iNeedA.writeMessage()).toEqual(true);
 //     }));
 
-//     it('constructor should set method', inject([MockHubConnectionBackend], (backend: MockHubConnectionBackend) => {
+//     it('constructor should set method', inject([HubConnectionMockBackend], (backend: HubConnectionMockBackend) => {
 //         let hc = new HubCallBack('OnMessageReceive');
 //         expect(hc.method).toEqual('OnMessageReceive');
 //     }));
 
 
-//     it('should have http', inject([MockHubConnectionBackend], (backend: MockHubConnectionBackend) => {
+//     it('should have http', inject([HubConnectionMockBackend], (backend: HubConnectionMockBackend) => {
 //         let config = new SignalrConfig();
 //         let hc = new HubCallBack('OnMessageReceive');
 //         config.hubCallBacks.push(hc);
@@ -46,7 +46,7 @@
 //         expect(config.hubCallBacks).toEqual(true);
 //     }));
 
-//     it('should SignalR', inject([ChatBox, MockHubConnectionBackend], (chatBox: ChatBox, mockBackend: MockHubConnectionBackend) => {
+//     it('should SignalR', inject([ChatBox, HubConnectionMockBackend], (chatBox: ChatBox, mockBackend: HubConnectionMockBackend) => {
 //         debugger;
 //         chatBox.ngOnInit();
 //         chatBox.txtMessage = 'Hannes';

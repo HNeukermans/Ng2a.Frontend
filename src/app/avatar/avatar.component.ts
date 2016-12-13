@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
 	selector: 'avatar',
-	templateUrl: 'avatar.component.html',
-	styleUrls: ['avatar.component.css']
+	template: require('./avatar.component.html'),
+	styles: [require('./avatar.component.css')]
 })
 export class Avatar implements OnInit {
 
