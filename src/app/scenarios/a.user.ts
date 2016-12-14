@@ -2,8 +2,6 @@ export class AUser {
 
     public get GerardSans(): any {
         return {
-            userName : 'gerardsans',
-            profile : {
                 aud: '61bdbb45-a004-48e3-98d9-e4f1740661c8',
                 iss: 'https://sts.windows.net/70904889-0180-4beb-ab8e-0d884f481f23/',
                 iat: 1479067366,
@@ -22,7 +20,6 @@ export class AUser {
                 unique_name: 'gerardsans@hneu70532.onmicrosoft.com',
                 upn: 'gerardsans@hneu70532.onmicrosoft.com',
                 ver: '1.0'
-            }
         }
     } 
 

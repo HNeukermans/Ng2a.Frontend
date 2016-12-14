@@ -30,17 +30,20 @@ export class HubConnectionMoler {
         console.log('received watchers: '+ watchers.map((w) => w.method).join(', '));
         this.configuration = config;
         this.watchers = watchers;
-        return Promise.resolve<HubConnection>(this.connection);
+        return new Promise<HubConnection>((resolve, reject) => {             
+            this.connection = new HubConnectionMock(resolve,reject);
+            console.log('HubConnectionMoler: hubconnection moled.');
+        });
     }
 
-    public reject(reason: string) : (watchers: Array<HubEventWatcher>, config: SignalrConfig) => Promise<HubConnection> {
+    // public reject(reason: string) : (watchers: Array<HubEventWatcher>, config: SignalrConfig) => Promise<HubConnection> {
              
-        return function(watchers: Array<HubEventWatcher>, config: SignalrConfig){
+    //     return function(watchers: Array<HubEventWatcher>, config: SignalrConfig){
             
-            this.watchers = watchers;
-            this.configuration = config;
+    //         this.watchers = watchers;
+    //         this.configuration = config;
             
-            return Promise.reject<HubConnection>(reason);
-        }        
-    }
+    //         return Promise.reject<HubConnection>(reason);
+    //     }        
+    // }
 }

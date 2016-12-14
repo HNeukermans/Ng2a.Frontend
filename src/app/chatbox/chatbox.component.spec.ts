@@ -1,7 +1,7 @@
 /// <reference path="../../../node_modules/@types/jasmine/index.d.ts" />
 
 
-import { inject, TestBed, async, fakeAsync, tick } from '@angular/core/testing';
+import { inject, TestBed, async, fakeAsync, tick, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { BaseRequestOptions, ConnectionBackend, Http } from '@angular/http';
 import { MockBackend } from '@angular/http/testing';
@@ -18,10 +18,12 @@ import { Avatar } from '../avatar/avatar.component';
 import { ChatMessageComponent } from '../chat.message/chat.message.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
+import { HubBackend } from '../domain/signalr/hub/backend/hub.backend';
 
 describe('Chatbox', () => {
 
-  let fixture, sut: ChatBox, element, de, hubMoler: HubConnectionMoler;
+  let fixture: ComponentFixture<ChatBox>, sut: ChatBox, element, de, hubMoler: HubConnectionMoler, spy;
+  let hubEventWatchers: Array<HubEventWatcher>, hubConfiguration: SignalrConfig;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,37 +33,105 @@ describe('Chatbox', () => {
     }).compileComponents();
   }));
 
-  
-
-  describe('ngOnInit', () => {
+  describe(':When ngOnInit', () => {
 
     beforeEach(() => {
-
-      hubMoler = new HubConnectionMoler();
+      //hubMoler = new HubConnectionMoler();
       fixture = TestBed.createComponent(ChatBox);
       sut = fixture.componentInstance;  // to access properties and methods
-      de = fixture.debugElement;            // test helper
-//fixture = TestBed.createComponent(ChatBox);
+      //fixture = TestBed.createComponent(ChatBox);
       Security.user = () => { return new AUser().GerardSans; }
-      SignalrEngine.connect = (w,c) => hubMoler.mole(w,c);
+      //SignalrEngine.connect = (w, c) => hubMoler.mole(w, c);
 
-      hubMoler.connection.whenQuery('QueryUsers').respond('Hannes');
-      spyOn(hubMoler.connection, 'query').and.callThrough();
-      sut.ngOnInit();
+      spyOn(SignalrEngine, 'connect').and.callFake((w, c) => {
+        hubEventWatchers = w;
+        hubConfiguration = c;
+        return Promise.resolve();
+      });
+
+      //hubMoler.connection.whenQuery('QueryUsers').respond(['Hannes']);
+      //spy = spyOn(hubMoler.connection, 'query').and.returnValue(Observable.from([['Hannes']]));
+      //sut.ngOnInit();
     });
+
+    function act() {
+      sut.ngOnInit();
+    }
 
     it('should watch the hub for events', () => {
-      expect(hubMoler.watchers.find((w) => w.method == 'MessageSent')).toBeDefined('MessageSent is expected to be watched');
-      expect(hubMoler.watchers.find((w) => w.method == 'UserConnected')).toBeDefined('UserConnected is expected to be watched');
+      act();
+      expect(hubEventWatchers).not.toBeNull();
+      expect(hubEventWatchers.find((w) => w.method == 'MessageSent')).toBeDefined('MessageSent is expected to be watched');
+      expect(hubEventWatchers.find((w) => w.method == 'UserConnected')).toBeDefined('UserConnected is expected to be watched');
     });
 
-    it('should show Gerard as logged in user', () => {
-      expect(sut.loggedInUserName).toBe(Security.user().given_name);
+    it('should configure the hub', () => {
+      act();
+      expect(hubConfiguration).not.toBeNull();
     });
 
-    it('should query the users', () => {
-      expect(hubMoler.connection.query).toHaveBeenCalledWith('QueryUsers');
+    it('should connect to signalr', () => {
+      act();
+      expect(SignalrEngine.connect).toHaveBeenCalled();
     });
+
+    it('should set the authenticated user', () => {
+      act();
+      expect(sut.authenticatedUser).toEqual(Security.user());
+      //fixture.detectChanges();
+    });
+
+    // it('should set the queried users', async(() => {
+    //   act();
+    //   fixture.whenStable().then(()=> {
+    //   //fixture.detectChanges();
+    //     expect(sut.usernames).toEqual(jasmine.arrayContaining(['Hannes']));
+    //   });
+    // }));
+    describe(':When signalr connects', () => {
+
+      beforeEach(() => {
+        hubMoler = new HubConnectionMoler();
+        fixture = TestBed.createComponent(ChatBox);
+        sut = fixture.componentInstance;
+        Security.user = () => { return new AUser().GerardSans; }
+        SignalrEngine.connect = (w, c) => hubMoler.mole(w, c);
+        //hubMoler.connection.whenQuery('QueryUsers').respond(['Hannes']);
+        //hubMoler.connection.whenQuery('QueryUsers').respond(['Hannes']);
+        //spy = spyOn(hubMoler.connection, 'query').and.returnValue(Observable.from([['Hannes']]));
+        sut.ngOnInit();
+      });
+
+      function act() {
+        hubMoler.connection.resolve();
+      }
+
+      it('should query the peer users', async(() => {
+        //spies on connection need to happen after ngOnInit and !!!
+        spyOn(hubMoler.connection, 'query').and.callThrough();
+        act();
+        fixture.whenStable().then(()=> {
+          expect(hubMoler.connection.query).toHaveBeenCalledWith('QueryUsers');
+        })        
+      }));
+
+      it('should bind the peer users', async(() => {
+        hubMoler.connection.whenQuery('QueryUsers').respond(['Hannes']);
+        act();
+        fixture.whenStable().then(()=> {
+          expect(sut.usernames).toEqual(['Hannes']);
+        });
+      }));
+      
+      // it('should set the queried users', async(() => {
+      //   act();
+      //   fixture.whenStable().then(()=> {
+      //   //fixture.detectChanges();
+      //     expect(sut.usernames).toEqual(jasmine.arrayContaining(['Hannes']));
+      //   });
+      // }));
+
+    })
   });
 
 

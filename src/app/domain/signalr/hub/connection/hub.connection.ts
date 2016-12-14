@@ -6,5 +6,6 @@ import { SignalrConfig } from '../../signalr.configuration';
 export abstract class HubConnection {
     status: Observable<{ status: string }>;
     error: Observable<any>;
-    public abstract query(method: string, ...parameters: any[]): Observable<any>;
+    public abstract query(method: string): Observable<any>;
+    public abstract command(method: string, payload:any): Observable<any>;
 } 
