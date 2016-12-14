@@ -17,7 +17,7 @@ export class HubConnectionMoler {
         
         this.watchers = null;
         this.configuration = null;
-        this.connection = new HubConnectionMock();
+        this.connection = null;
     }
 
     public mole(watchers: Array<HubEventWatcher>, config: SignalrConfig) :  Promise<HubConnection> {

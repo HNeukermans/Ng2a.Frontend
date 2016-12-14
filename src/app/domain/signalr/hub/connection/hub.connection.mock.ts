@@ -43,17 +43,7 @@ export class HubConnectionMock extends HubConnection {
         //if(!found) throw new Error('Failed to query method "'+ method + '". An arranged query for the given method could not be found. You need to arrange the query first by calling whenQuery(...).');
         return Observable.from([ found ? found.response :  [] ]);
     }
-
-    public spyQuery(method: string): Observable<any> {
-        
-        if(method == null) throw Error('Failed to query. Argument "method" can not be null.');
-        console.log('HubConnectionMock: query called, with argument: ' + method + '...');
-
-        let found = this.arrangedQueries.find((q) => q.method === method);
-        if(!found) throw new Error('Failed to query method "'+ method + '". An arranged query for the given method could not be found. You need to arrange the query first by calling whenQuery(...).');
-        return Observable.from([ found.response]);
-    }
-
+    
     public whenQuery(method : string) : ArrangedQuery  {
         
         let aq = new ArrangedQuery(method);
@@ -67,8 +57,8 @@ export class HubConnectionMock extends HubConnection {
         console.log('HubConnectionMock: command called, method: ' + method + '...');
 
         let found = this.arrangedCommands.find((q) => q.method === method);
-        if(!found) throw new Error('Failed to command "'+ method + '". An arranged command for the given method could not be found. You need to arrange the command first by calling whenCommand(...).');
-        return Observable.from([ found.response]);
+        //if(!found) throw new Error('Failed to command "'+ method + '". An arranged command for the given method could not be found. You need to arrange the command first by calling whenCommand(...).');
+        return Observable.from([ found ? found.response : [] ]);
     }
 
     public whenCommand(method : string) : ArrangedQuery  {

@@ -106,21 +106,23 @@ describe('Chatbox', () => {
         hubMoler.connection.resolve();
       }
 
-      it('should query the peer users', async(() => {
-        //spies on connection need to happen after ngOnInit and !!!
+      it('should query the peer users', fakeAsync(() => {
+        //spies on connection need to happen after ngOnInit !!!
         spyOn(hubMoler.connection, 'query').and.callThrough();
         act();
-        fixture.whenStable().then(()=> {
+        tick();
+        //fixture.whenStable().then(()=> {
           expect(hubMoler.connection.query).toHaveBeenCalledWith('QueryUsers');
-        })        
+        //})        
       }));
 
-      it('should bind the peer users', async(() => {
+      it('should bind the peer users', fakeAsync(() => {
         hubMoler.connection.whenQuery('QueryUsers').respond(['Hannes']);
         act();
-        fixture.whenStable().then(()=> {
+        tick();
+        //fixture.whenStable().then(()=> {
           expect(sut.usernames).toEqual(['Hannes']);
-        });
+        //});
       }));
       
       // it('should set the queried users', async(() => {

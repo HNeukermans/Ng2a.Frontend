@@ -37,36 +37,28 @@ describe('Chatbox:Messages', () => {
     sut = fixture.componentInstance;  // to access properties and methods
     Security.user = () => { return new AUser().GerardSans; }
     SignalrEngine.connect = (w, c) => hubMoler.mole(w, c);
-    hubMoler.connection.whenQuery('QueryUsers').respond(['Hannes']);
-    spyOn(hubMoler.connection, 'command').and.returnValue(Observable.from(['OK']));
+    
+    //hubMoler.connection.whenQuery('QueryUsers').respond(['Hannes']);
+    
   });
 
-  describe('click add should sent message', () => {
+  describe('when entered a text message and add is clicked', () => {
 
-    it('should watch the hub for events', fakeAsync(() => {
-
-      function act() {
+    function act() {
         sut.txtMessage = 'Hi there';
         sut.btnAddClick$.next('void');
-        sut.btnAddClick$.next('void');
-        sut.txtMessageEnter$.next('void');
-        hubMoler.connection.mockStatus('START');
       };
 
+    it('should command the message on the hub connection', fakeAsync(() => {
+
       sut.ngOnInit();
-      tick();
-      sut.txtMessage = 'Hi there';
-       tick();
-       sut.txtMessageEnter$.next('void');
-      //tick();
+      spyOn(hubMoler.connection, 'command').and.callThrough();
+      hubMoler.connection.resolve();
       act();
       tick();
-      //fixture.whenStable().then(() => {
-
-      //assert
+      
       const expectedMessage = new SignalrMessage(Security.user().given_name, 'Hi there');
-      expect(hubMoler.connection.command).toHaveBeenCalledWith(['message', expectedMessage]);
-      // });
+      expect(hubMoler.connection.command).toHaveBeenCalledWith('message', expectedMessage);
 
     }));
   });
